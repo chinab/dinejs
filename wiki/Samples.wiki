@@ -1,0 +1,21 @@
+#summary sample steps
+#labels Featured
+
+
+= Samples =
+
+this small piece of code will fetch all linked email addresses from a website
+
+{{{
+createStep({
+	getUrl: function() {
+		return "http://someurl.com";
+	},
+	run: function() {		
+	
+		for each( var link in this.xmlObj..a.@href ) 
+			if ( link.match(/^mailto:/) )
+				out.println( unescape( String(link).replace( /mailto:/g, "" ) ) );
+	}
+});
+}}}
