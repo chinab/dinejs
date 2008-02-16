@@ -40,3 +40,9 @@ java -jar dine-0.2-beta-all.jar -d home/me/dine -s printTitle
 *dine* will now look for a file called _printTitle.js_ in the directory _home/me/dine_ and execute the *step* code in it. 
 
 It should print _Google_ as a result because this is the page title of _http://google.com_
+
+{{{
+16:20:53,693 INFO  [CachingFileStepFactory] creating step [title]
+Google
+16:20:54,564 INFO  [MultiThreadedStepExecutor] done
+}}}
