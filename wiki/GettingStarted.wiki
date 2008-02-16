@@ -1,0 +1,48 @@
+#summary 2 minute introduction
+#labels Featured
+
+= Getting started =
+
+
+== Installation ==
+
+All you need to start using *dine* is Java 1.5 or higher, get it [http://java.sun.com/javase/downloads/index.jsp here] if you don't already have it installed.
+
+
+Next grab the latest dine jar from [http://code.google.com/p/dinejs/downloads the downloads page].
+
+
+== Write your first step ==
+
+
+Let's have a look at a simple example:
+
+You have to write a* step* now. A *step* fetches a website as XML and you can write code to parse it.
+
+Create a file called _printTitle.js_ somewhere on your disk (let's assume you use _/home/me/dine_ as directory) and paste the following code in it:
+
+{{{
+createStep({
+	getUrl: function() {
+		return "http://www.google.com";
+	},
+	run: function() {		
+			out.println( this.xmlObj..title );
+	}
+});
+}}}
+
+== Run the step ==
+
+Open a shell, go to the directory where you downloaded the dine.jar (let's assume you downloaded _dine-0.2-beta-all.jar_) and type the following:
+
+{{{
+java -jar dine-0.2-beta-all.jar -d home/me/dine -s printTitle
+}}}
+
+*dine* will now look for a file called _printTitle.js_ in the directory _home/me/dine_ and execute the *step* code in it. 
+
+It should print _Google_ as a result because this is the page title of _http://google.com_
+
+
+
