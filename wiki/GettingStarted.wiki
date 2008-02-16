@@ -31,7 +31,7 @@ createStep({
 
 == Run the step ==
 
-Open a shell, go to the directory where you downloaded the dine.jar (let's assume you downloaded _dine-0.2-beta-all.jar_) and type the following:
+Open a shell, go to the directory where you downloaded the dine jar (let's assume you downloaded _dine-0.2-beta-all.jar_) and type the following:
 
 {{{
 java -jar dine-0.2-beta-all.jar -d home/me/dine -s printTitle
@@ -40,4 +40,3 @@ java -jar dine-0.2-beta-all.jar -d home/me/dine -s printTitle
 *dine* will now look for a file called _printTitle.js_ in the directory _home/me/dine_ and execute the *step* code in it. 
 
 It should print _Google_ as a result because this is the page title of _http://google.com_
-
