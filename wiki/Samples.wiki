@@ -4,7 +4,9 @@
 
 = Samples =
 
-this small piece of code will fetch all linked email addresses from a website
+== Fetch all linked email addresses ==
+
+_fetchEmails.js_
 
 {{{
 createStep({
@@ -16,6 +18,38 @@ createStep({
 		for each( var link in this.xmlObj..a.@href ) 
 			if ( link.match(/^mailto:/) )
 				out.println( unescape( String(link).replace( /mailto:/g, "" ) ) );
+	}
+});
+}}}
+
+== Check external links ==
+
+_findExternalLinks.js_
+
+{{{
+createStep({
+	getUrl: function() {
+		return "http://someurl.com";
+	},
+	run: function() {		
+				
+		for each( var link in this.xmlObj..a.@href ) 
+			if ( link.match(/^http/) )
+				addStep("check404", { url: unescape(link) });		
+
+	}
+});
+}}}
+
+_check404.js_
+
+{{{
+createStep({
+	getUrl: function() {
+		return this.memory.url;
+	},
+	run: function() {		
+			out.println( "HTTP Response for "+this.memory.url+" : "+String(this.httpResponseCode) );
 	}
 });
 }}}
