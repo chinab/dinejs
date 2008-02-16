@@ -42,7 +42,7 @@ java -jar dine-0.2-beta-all.jar -d home/me/dine -s printTitle
 It should print _Google_ as a result because this is the page title of _http://google.com_
 
 {{{
-16:20:53,693 INFO  [CachingFileStepFactory] creating step [title]
+16:20:53,693 INFO  [CachingFileStepFactory] creating step [printTitle]
 Google
 16:20:54,564 INFO  [MultiThreadedStepExecutor] done
 }}}
