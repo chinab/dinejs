@@ -1,0 +1,105 @@
+
+<project name="dine" default="dist-onejar" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<property name="version" value="0.2-beta"/>
+
+	<property name="resources.dir" value="resources"/>
+	<property name="lib.dir" value="${resources.dir}/lib"/>    
+  <property name="src.dir" value="src"/>
+  <property name="build.dir" value="build"/>
+	<property name="build.onejar.dir" value="build-onejar"/>
+  <property name="dist.dir" value="${resources.dir}/dist"/>
+		
+	
+	
+	<import file="${resources.dir}/ant/ivy-build.xml"/>
+	<import file="${resources.dir}/ant/eclipse-build.xml"/>
+		
+	<path id="classpath">
+		<fileset dir="${lib.dir}/default">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="initialSetup" depends="generate-eclipse-classpath,resolve-dependencies" description="setup the project">
+	</target>
+		
+	<target name="initialSetupForEclipse" depends="generate-eclipse-classpath" description="setup the project in eclipse">
+	</target>
+
+	<target name="compile" description="compile sources">
+
+		<mkdir dir="${build.dir}"/>
+			
+    <javac 	destdir="${build.dir}" 
+    				target="1.5" debug="true"
+			      deprecation="false"
+      			encoding="UTF-8"	
+      			optimize="true"
+			      failonerror="true"
+    >
+    	<src path="${src.dir}"/>
+    	<classpath refid="classpath"/>
+    </javac>		
+		
+	</target>	
+	
+	<target name="dist-onejar" depends="jar">
+		<mkdir dir="${build.onejar.dir}"/>
+		<mkdir dir="${build.onejar.dir}/main"/>
+		<mkdir dir="${build.onejar.dir}/lib"/>
+		<copy todir="${build.onejar.dir}">
+			<fileset dir="${resources.dir}/onejar"/>
+		</copy>
+		<copy todir="${build.onejar.dir}/lib">
+			<fileset dir="${lib.dir}/default">
+				<include name="**/*.jar"/>
+			</fileset>
+		</copy>
+		<copyfile dest="${build.onejar.dir}/main/dine-${version}.jar" src="${dist.dir}/dine-${version}.jar"/>
+		
+  	<jar 
+  			destfile="${dist.dir}/dine-${version}-all.jar"
+  	    basedir="${build.onejar.dir}"
+  	>
+	    <manifest>
+	      <attribute name="Built-By" value="ssc"/>
+	    	<attribute name="Implementation-Title" value="dine"/> 
+	    	<attribute name="Implementation-Version" value="${version}"/> 
+    		<attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
+    		<attribute name="One-Jar-Main-Class" value="de.alombra.dine.run.Runner"/>
+	    </manifest>  		
+  		<metainf file="${resources.dir}/LICENSE.txt"/>
+ 		</jar>		
+		
+		<delete dir="${build.onejar.dir}"/> 
+	</target>
+	
+  <target name="jar" depends="resolve-dependencies, compile" description="build dine jar">
+  		
+  	<jar 
+  			destfile="${dist.dir}/dine-${version}.jar"
+  	    basedir="${build.dir}"
+  	>
+	    <manifest>
+	      <attribute name="Built-By" value="ssc"/>
+	    	<attribute name="Implementation-Title" value="dine"/> 
+	    	<attribute name="Implementation-Version" value="${version}"/> 
+    		<attribute name="Main-Class" value="de.alombra.dine.run.Runner"/>
+	    </manifest>  		
+  		<metainf file="${resources.dir}/LICENSE.txt"/>
+ 		</jar>
+		
+		<delete dir="${build.dir}"/>  	
+  </target>	
+	
+	<target name="clean" depends="clean-ivy" description="remove all generated files">
+		<delete dir="${build.dir}"/> 
+		<delete>
+			<fileset dir="${dist.dir}">
+					<include name="*.jar"/>
+			</fileset>	
+		</delete>
+	</target>
+	
+</project>
