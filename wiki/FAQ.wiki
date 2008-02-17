@@ -1,0 +1,10 @@
+#summary frequently asked questions
+#labels Featured
+
+=== What XML parser is the javascript code using? ===
+
+It uses *E4X*, check [http://en.wikipedia.org/wiki/E4X wikipedia] to learn more.
+
+=== Why do I have to write a *step* for each website I want to parse, couldn't I parse more than one in a *step*? === 
+
+You probably could, but *dine* executes your *steps* _concurrently_ and the best way to parallelize execution is to start a single thread for each website to parse.
