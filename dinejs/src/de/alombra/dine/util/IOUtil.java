@@ -10,7 +10,7 @@ import de.alombra.dine.exception.DineException;
 
 public class IOUtil {
 
-	public static String getFileContent( InputStream stream ) {
+	public static String getContent( InputStream stream ) {
 		
 		try {
 			
@@ -35,7 +35,7 @@ public class IOUtil {
 			throw new DineException( "unable to read file "+fileName );
 		
 		try {
-			return IOUtil.getFileContent( new FileInputStream( file ) );
+			return IOUtil.getContent( new FileInputStream( file ) );
 		} 
 		catch ( FileNotFoundException e ) {
 			throw new DineException( e );

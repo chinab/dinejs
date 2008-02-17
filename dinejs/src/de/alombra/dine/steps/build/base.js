@@ -19,11 +19,16 @@ var Class = {
 var BaseStep = Class.create({
 
 	  xmlObj: 					null,
+	  jsonObj:					null,
 	  memory: 					{},
 	  httpResponseCode: null,
 		
 		setXmlStr: function( xmlStr ) {
 			this.xmlObj = new XML( xmlStr );
+		},
+		
+		setJsonStr: function ( jsonStr ) {
+			this.jsonObj = eval("("+jsonStr+")");
 		},
 		
 		addMemoryAttribute: function( key, value ) {
