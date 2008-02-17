@@ -42,6 +42,14 @@
     	<classpath refid="classpath"/>
     </javac>		
 		
+		<copy todir="${build.dir}">
+				<fileset dir="${src.dir}">
+					<include name="**/*.js"/>
+					<include name="**/*.xml"/>
+					<include name="**/*.properties"/>
+				</fileset>
+		</copy>				
+		
 	</target>	
 	
 	<target name="dist-onejar" depends="jar">

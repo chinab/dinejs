@@ -13,6 +13,9 @@
    
      
    <target name="install-ivy" depends="download-ivy" description="install ivy">
+   	
+   	<mkdir dir="${lib.dir}"/>
+   	
    	<path id="ivy.lib.path">
    	    <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
    	</path>
@@ -21,7 +24,8 @@
    </target>    
 
   <target name="resolve-dependencies" depends="install-ivy" description="fetch all dependencies">
-  	<ivy:settings id="ivy.instance" file="${resources.dir}/ivy/ivy-settings.xml" />
+  	<ivy:settings id="ivy.instance" file="${resources.dir}/ivy/ivy-settings.xml"/>
+  		
   	<ivy:retrieve 
   		pattern="${lib.dir}/[conf]/[artifact].[ext]" 
   		sync="true"
@@ -39,7 +43,6 @@
 	<target name="clean-ivy-cache" depends="install-ivy" description="clean the ivy cache">
 		<ivy:cleancache />
 		<delete dir="${lib.dir}"/>
-		<mkdir dir="${lib.dir}"/>
 	</target>	
 	
 </project>	
