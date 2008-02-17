@@ -1,5 +1,5 @@
 <ivy-module version="2.0">
-    <info organisation="apache" module="hello-ivy"/>
+    <info organisation="alombra" module="dinejs"/>
     <dependencies>
         <dependency		org="commons-httpclient" 	name="commons-httpclient"		rev="3.1-rc1"	/>
         <dependency		org="log4j" 							name="log4j" 													rev="1.2.13"		/>

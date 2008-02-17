@@ -2,12 +2,30 @@ package de.alombra.dine.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import de.alombra.dine.exception.DineException;
 
 public class IOUtil {
 
+	public static String getFileContent( InputStream stream ) {
+		
+		try {
+			
+			byte b[] = new byte[ stream.available() ];
+			
+			stream.read( b );
+			
+			stream.close();
+			
+			return new String( b );		
+		} 
+		catch ( Exception e ) {
+			throw new DineException( e );
+		}
+	}
 	
 	public static String getFileContent( String fileName ) {
 
@@ -17,16 +35,9 @@ public class IOUtil {
 			throw new DineException( "unable to read file "+fileName );
 		
 		try {
-					
-			FileInputStream fis = new FileInputStream( file );
-
-			byte b[]	= new byte[ fis.available() ];
-			
-			fis.read( b );
-			
-			return new String( b );		
+			return IOUtil.getFileContent( new FileInputStream( file ) );
 		} 
-		catch ( Exception e ) {
+		catch ( FileNotFoundException e ) {
 			throw new DineException( e );
 		}
 	}
