@@ -46,3 +46,11 @@ It should print _Google_ as a result because this is the page title of _http://g
 Google
 16:20:54,564 INFO  [MultiThreadedStepExecutor] done
 }}}
+
+== Take a look at the code ==
+
+What did the *step* do in detail? Well, *dine* executes *steps* in a two way procedure: 
+
+At first it calls _getUrl()_, fetches the HTML of the URL returned and converts it to an XML object  ( _this.xmlObj_ ).
+
+After that *dine* calls _run()_ and you can parse the XML. 
