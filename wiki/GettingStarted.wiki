@@ -24,7 +24,7 @@ createStep({
 		return "http://www.google.com";
 	},
 	run: function() {		
-			out.println( this.xmlObj..title );
+			print( this.xmlObj..title );
 	}
 });
 }}}
