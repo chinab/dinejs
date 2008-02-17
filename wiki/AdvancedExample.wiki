@@ -1,4 +1,5 @@
 #summary a more advanced example
+#labels Featured
 
 *NOTE*: This example is just thought to show how *dine* works, don't use it to crawle google.com, as it violates google's terms of use to do this!
 
