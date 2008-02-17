@@ -4,8 +4,8 @@ import org.apache.commons.httpclient.HttpMethod;
 
 import de.alombra.dine.exception.DineException;
 import de.alombra.dine.steps.Step;
+import de.alombra.dine.steps.execution.content.ContentFormatterFactory;
 import de.alombra.dine.steps.execution.http.HttpUtil;
-import de.alombra.dine.steps.execution.xml.XmlUtil;
 
 public class StepRunner implements Runnable {
 
@@ -26,8 +26,12 @@ public class StepRunner implements Runnable {
 			HttpMethod method = HttpUtil.executeGet( this.step.getUrl() );
 	
 			this.step.setHttpResponse( method.getStatusCode() );
-//			System.out.println( method.getResponseHeader("Content-Type").getValue() );
-			this.step.setXmlStr( XmlUtil.htmlToXml( method.getResponseBodyAsStream() ) );			
+			
+			String contentType = method.getResponseHeader("Content-Type").getValue();
+			
+			ContentFormatterFactory.getFormatter( contentType )
+								   .format( this.step, method );
+			
 			this.step.run();
 		}
 		catch ( Exception e ) {

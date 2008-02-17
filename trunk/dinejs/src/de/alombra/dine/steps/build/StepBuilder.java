@@ -15,7 +15,7 @@ import de.alombra.dine.util.IOUtil;
 
 public class StepBuilder {
 
-	private static final String DINE_JS_CODE = IOUtil.getFileContent( StepBuilder.class.getClassLoader().getResourceAsStream( "de/alombra/dine/steps/build/base.js" ) );
+	private static final String DINE_JS_CODE = IOUtil.getContent( StepBuilder.class.getClassLoader().getResourceAsStream( "de/alombra/dine/steps/build/base.js" ) );
 	
 	private Step step;
 	
