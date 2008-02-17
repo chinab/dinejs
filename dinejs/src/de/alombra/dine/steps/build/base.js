@@ -53,3 +53,7 @@ function addStep( stepName, stepMemoryProperties ) {
 
 	executionContext.addStep( stepName, memory );
 }
+
+function print( str )  {
+	out.println( str );
+}
