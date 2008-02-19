@@ -2,54 +2,11 @@
 #labels Featured
 
 
-= Samples =
+== Simple examples ==
 
-== Fetch all linked email addresses ==
+ * [SimpleExampleAllEmailAddresses fetch all email addresses from a page]
+ * [SimpleExampleAllOutgoingLinks check all outgoing links of a page]
 
-_fetchEmails.js_
+== Advanced examples ==
 
-{{{
-createStep({
-	getUrl: function() {
-		return "http://someurl.com";
-	},
-	run: function() {		
-	
-		for each( var link in this.xmlObj..a.@href ) 
-			if ( link.match(/^mailto:/) )
-				out.println( unescape( String(link).replace( /mailto:/g, "" ) ) );
-	}
-});
-}}}
-
-== Check external links ==
-
-_findExternalLinks.js_
-
-{{{
-createStep({
-	getUrl: function() {
-		return "http://someurl.com";
-	},
-	run: function() {		
-				
-		for each( var link in this.xmlObj..a.@href ) 
-			if ( link.match(/^http/) )
-				addStep("check404", { url: unescape(link) });		
-
-	}
-});
-}}}
-
-_check404.js_
-
-{{{
-createStep({
-	getUrl: function() {
-		return this.memory.url;
-	},
-	run: function() {		
-			out.println( "HTTP Response for "+this.memory.url+" : "+String(this.httpResponseCode) );
-	}
-});
-}}}
+ * [AdvancedExampleFindXingProfiles find and parse xing profiles via google]
