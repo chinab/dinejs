@@ -23,6 +23,8 @@ var BaseStep = Class.create({
 	  params: 					{},
 	  httpResponseCode: null,
 		
+		memories: null,
+		
 		setXmlStr: function( xmlStr ) {
 			this.xmlObj = new XML( xmlStr );
 		},
@@ -37,7 +39,20 @@ var BaseStep = Class.create({
 		
 		setHttpResponse: function( code ) {
 			this.httpResponseCode = code;
-		}
+		},
+		
+		setMemory: function( syncedMem ) {
+			this.memories = syncedMem;
+		},
+		
+		inMemory: function( key ) {
+			return this.memories.exists( key );
+		},
+		
+		addToMemory: function( key, value ) {
+			return this.memories.add( key, value );
+		} 
+		
 });
 
 function createStep( stepImpl ) {
@@ -50,7 +65,7 @@ function createStep( stepImpl ) {
 
 function addStep( stepName, stepParameters ) {
 
-  var parameters = new Packages.de.alombra.dine.steps.StepParameters();
+  var parameters = new Packages.de.alombra.dine.steps.impl.StepParametersImpl();
   
 	for ( var param in stepParameters )
 		parameters.setAttribute( param, stepParameters[param] );

@@ -10,14 +10,18 @@ import org.apache.commons.logging.LogFactory;
 
 import de.alombra.dine.exception.DineException;
 import de.alombra.dine.steps.Step;
+import de.alombra.dine.steps.StepMemory;
 import de.alombra.dine.steps.StepParameters;
 import de.alombra.dine.steps.build.StepFactory;
 import de.alombra.dine.steps.execution.ExecutionContext;
+import de.alombra.dine.steps.impl.SynchronizedStepMemory;
 
 public class BlockingExecutionContext implements ExecutionContext {
 	
 	private BlockingQueue<Step> stepsQueue = new LinkedBlockingQueue<Step>();
 	private StepFactory factory;
+	
+	private StepMemory memory = new SynchronizedStepMemory();
 	
 	private static final Log logger = LogFactory.getLog( BlockingExecutionContext.class );
 	
@@ -66,6 +70,8 @@ public class BlockingExecutionContext implements ExecutionContext {
 	
 	public ExecutionContext addStep( Step step ) {						
 			
+		step.setMemory( memory );
+		
 		stepsQueue.offer( step );
 		
 		if ( logger.isDebugEnabled() )
