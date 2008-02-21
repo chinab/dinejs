@@ -5,6 +5,7 @@ import java.io.Reader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mozilla.javascript.Context;
+import org.mozilla.javascript.EvaluatorException;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
@@ -43,6 +44,22 @@ public class StepBuilder {
 			ctx.evaluateReader( scope, reader, name, 1, null ); 
 		}
 		catch( Exception e ) {
+			
+			if ( e instanceof EvaluatorException ) {
+				
+				EvaluatorException evaluatorException = (EvaluatorException)e;
+				
+				System.out.println("--- JavaScript Error -------------------------------------------------------------");
+				System.out.println("");
+				System.out.println("File:  "+evaluatorException.sourceName() );
+				System.out.println("Line:  "+evaluatorException.lineNumber() );
+				System.out.println("");
+				System.out.println( evaluatorException.details() );
+				System.out.println("");
+				System.out.println("----------------------------------------------------------------------------------");
+
+			}
+			
 			throw new DineException( e );
 		}
 		finally {
