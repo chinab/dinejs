@@ -32,7 +32,7 @@ public class Runner {
 		}
 		
 		//String jsDir 				= "/Users/alombra/Entwicklung/projekte/dine/resources/samples";
-		int maxConcurrentThreads 	= 20;
+		int maxConcurrentThreads 	= 50;
 		//List<String> seedStepNames 	= Arrays.asList( new String[] { "checkExternalLinks" } );
 		List<String> seedStepNames 	= Arrays.asList( new String[] { seed } );
 		

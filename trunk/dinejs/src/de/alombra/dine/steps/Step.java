@@ -9,4 +9,7 @@ public interface Step {
 	
 	public String getUrl();
 	public void run();
+	
+	public void setMemory( StepMemory memory );
+	
 }

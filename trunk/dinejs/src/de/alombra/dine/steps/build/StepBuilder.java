@@ -49,14 +49,14 @@ public class StepBuilder {
 				
 				EvaluatorException evaluatorException = (EvaluatorException)e;
 				
-				System.out.println("--- JavaScript Error -------------------------------------------------------------");
-				System.out.println("");
-				System.out.println("File:  "+evaluatorException.sourceName() );
-				System.out.println("Line:  "+evaluatorException.lineNumber() );
-				System.out.println("");
-				System.out.println( evaluatorException.details() );
-				System.out.println("");
-				System.out.println("----------------------------------------------------------------------------------");
+				System.err.println("--- JavaScript Error -------------------------------------------------------------");
+				System.err.println("");
+				System.err.println("File:  "+evaluatorException.sourceName() );
+				System.err.println("Line:  "+evaluatorException.lineNumber() );
+				System.err.println("");
+				System.err.println( evaluatorException.details() );
+				System.err.println("");
+				System.err.println("----------------------------------------------------------------------------------");
 
 			}
 			

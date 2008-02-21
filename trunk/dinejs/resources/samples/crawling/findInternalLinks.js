@@ -11,17 +11,35 @@ createStep({
 				
 		print( "Checking " + this.getUrl() );
 				
-		for each( var link in this.xmlObj..a.@href ) 
-			if ( !link.match(/:\/\//) && !link.match(/^#/) )
-				addStep("crawling/findInternalLinks", { url: this.createNewUrl( link ) });
+		for each( var link in this.xmlObj..a.@href ) {
 				
+			if ( this.isInternalLink( link ) == true ) {
+			
+				var url = this.createNewUrl( link );
+			
+				if ( this.inMemory( url ) == false ) {
+							
+					this.addToMemory( url, true );																			
+					addStep("crawling/findInternalLinks", { url: url });
+				}
+			}
+		}	
 	},
 	
 	getRootUrl: function() {
-		return "http://www.alombra.de/";
+		return "http://www.crawlthisdomain.com/";
 	},
 	
 	createNewUrl: function( link ) {
 		return this.getRootUrl()+String(link);
+	},
+	
+	isInternalLink: function( link ) {
+		return ( 							
+							!link.match(/:\/\//) && 
+							!link.match(/^#/) && 
+							!link.match(/^mailto:/) && 
+							!link.match(/^javascript:/)
+					);
 	}
 });
