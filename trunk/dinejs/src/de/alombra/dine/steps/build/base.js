@@ -20,7 +20,7 @@ var BaseStep = Class.create({
 
 	  xmlObj: 					null,
 	  jsonObj:					null,
-	  memory: 					{},
+	  params: 					{},
 	  httpResponseCode: null,
 		
 		setXmlStr: function( xmlStr ) {
@@ -31,8 +31,8 @@ var BaseStep = Class.create({
 			this.jsonObj = eval("("+jsonStr+")");
 		},
 		
-		addMemoryAttribute: function( key, value ) {
-			this.memory[key] = value;			
+		addParameter: function( key, value ) {
+			this.params[key] = value;			
 		},
 		
 		setHttpResponse: function( code ) {
@@ -48,15 +48,14 @@ function createStep( stepImpl ) {
 	);	
 }
 
-function addStep( stepName, stepMemoryProperties ) {
+function addStep( stepName, stepParameters ) {
 
-	//TODO inherit memory
-  var memory = new Packages.de.alombra.dine.steps.StepMemory();
+  var parameters = new Packages.de.alombra.dine.steps.StepParameters();
   
-	for ( var prop in stepMemoryProperties )
-		memory.setAttribute( prop, stepMemoryProperties[prop] );
+	for ( var param in stepParameters )
+		parameters.setAttribute( param, stepParameters[param] );
 
-	executionContext.addStep( stepName, memory );
+	executionContext.addStep( stepName, parameters );
 }
 
 function print( str )  {

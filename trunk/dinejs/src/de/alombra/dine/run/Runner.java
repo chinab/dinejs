@@ -12,7 +12,7 @@ import de.alombra.dine.steps.execution.impl.MultiThreadedStepExecutor;
 
 public class Runner {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		
 		if ( args.length < 4 ) {
 			System.err.println("Usage: java -jar dine-all.jar -d <stepDir> -s <seedStep>");
@@ -44,6 +44,5 @@ public class Runner {
 		StepExecutor executor = new MultiThreadedStepExecutor( maxConcurrentThreads, ctx );
 		
 		executor.start();
-
 	}
 }

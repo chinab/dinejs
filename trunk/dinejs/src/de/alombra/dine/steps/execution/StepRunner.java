@@ -35,6 +35,7 @@ public class StepRunner implements Runnable {
 			this.step.run();
 		}
 		catch ( Exception e ) {
+			
 			throw new DineException("Unable to run step", e );
 		}
 		finally {

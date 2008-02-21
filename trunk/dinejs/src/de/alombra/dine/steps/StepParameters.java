@@ -3,11 +3,11 @@ package de.alombra.dine.steps;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StepMemory {
+public class StepParameters {
 
 	private Map<String, String> attributes = new HashMap<String, String>();
 	
-	public StepMemory setAttribute( String key, String value ) {
+	public StepParameters setAttribute( String key, String value ) {
 		this.attributes.put( key, value );
 		return this;
 	}

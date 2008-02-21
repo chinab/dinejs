@@ -1,6 +1,6 @@
 createStep({
 	getUrl: function() {
-		return this.memory.url;
+		return this.params.url;
 	},
 	run: function() {		
 		
