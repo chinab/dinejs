@@ -1,0 +1,42 @@
+#summary demonstrating the use of JSON and E4X
+
+We want to use the [http://www.geonames.org/export/geonames-search.html JSON webservice from geonames.org] and create an XML file with from the result, all this can be done in ca. 10 lines of code.
+
+== Code ==
+
+{{{
+createStep({
+	getUrl: function() {
+		return "http://ws.geonames.org/searchJSON?q=Alexanderplatz,Berlin&maxRows=10";
+	},
+	run: function() {		
+
+		var result = <result/>
+		
+		for ( var n=0 ; n<this.jsonObj.totalResultsCount ; n++ )		
+			result.appendChild( <place lat={this.jsonObj.geonames[n].lat} lng={this.jsonObj.geonames[n].lng}>{this.jsonObj.geonames[n].name}</place> );
+		
+		createFile( "alexanderplatz.xml", "<?xml version=\"1.0\"?>\n"+result.toXMLString() );
+
+	}
+});
+}}}
+
+== Details ==
+
+geonames.org offers simple JSON webservice where you can submit the name of some location and get back a list of places matching that location.
+
+We search for the _Alexanderplatz_ in _Berlin_ by requesting _http://ws.geonames.org/searchJSON?q=Alexanderplatz,Berlin&maxRows=10_
+
+*dine* automatically recognizes that the answer is sent in JSON and makes it available in _this.jsonObj_
+
+We check the JSON, create an E4X XML object from this and write that to a file that's gonna look like this:
+
+{{{
+<?xml version="1.0"?>
+<result>
+  <place lat="52.523" lng="13.438">NH Berlin Alexanderplatz</place>
+  <place lat="52.5228" lng="13.4149">Park Inn Berlin-Alexanderplatz</place>
+  <place lat="52.5248" lng="13.4203">AGON am Alexanderplatz</place>
+</result>
+}}}
