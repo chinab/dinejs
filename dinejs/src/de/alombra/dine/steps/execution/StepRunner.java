@@ -2,10 +2,10 @@ package de.alombra.dine.steps.execution;
 
 import org.apache.commons.httpclient.HttpMethod;
 
-import de.alombra.dine.exception.DineException;
 import de.alombra.dine.steps.Step;
 import de.alombra.dine.steps.execution.content.ContentFormatterFactory;
 import de.alombra.dine.steps.execution.http.HttpUtil;
+import de.alombra.dine.util.ReportingUtil;
 
 public class StepRunner implements Runnable {
 
@@ -21,9 +21,11 @@ public class StepRunner implements Runnable {
 
 	public void run() {
 
+		HttpMethod method = null;
+		
 		try {
 
-			HttpMethod method = HttpUtil.executeGet( this.step.getUrl() );
+			method = HttpUtil.executeGet( this.step.getUrl() );
 	
 			this.step.setHttpResponse( method.getStatusCode() );
 			
@@ -32,13 +34,16 @@ public class StepRunner implements Runnable {
 			ContentFormatterFactory.getFormatter( contentType )
 								   .format( this.step, method );
 			
-			this.step.run();
+			this.step.run();			
 		}
 		catch ( Exception e ) {
-			System.err.println( e );
-			//throw new DineException("Unable to run step", e );
+			ReportingUtil.reportException( e );
 		}
-		finally {
+		finally {			
+			
+			if ( null != method )
+				method.releaseConnection();
+			
 			this.stepExecutor.notifyOfTermination();
 		}
 	}

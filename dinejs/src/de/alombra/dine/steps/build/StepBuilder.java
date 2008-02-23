@@ -1,11 +1,10 @@
-package de.alombra.dine.steps.build;
+ package de.alombra.dine.steps.build;
 
 import java.io.Reader;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mozilla.javascript.Context;
-import org.mozilla.javascript.EvaluatorException;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
@@ -13,6 +12,7 @@ import de.alombra.dine.exception.DineException;
 import de.alombra.dine.steps.Step;
 import de.alombra.dine.steps.execution.impl.BlockingExecutionContext;
 import de.alombra.dine.util.IOUtil;
+import de.alombra.dine.util.ReportingUtil;
 
 public class StepBuilder {
 
@@ -45,21 +45,7 @@ public class StepBuilder {
 		}
 		catch( Exception e ) {
 			
-			if ( e instanceof EvaluatorException ) {
-				
-				EvaluatorException evaluatorException = (EvaluatorException)e;
-				
-				System.err.println("--- JavaScript Error -------------------------------------------------------------");
-				System.err.println("");
-				System.err.println("File:  "+evaluatorException.sourceName() );
-				System.err.println("Line:  "+evaluatorException.lineNumber() );
-				System.err.println("");
-				System.err.println( evaluatorException.details() );
-				System.err.println("");
-				System.err.println("----------------------------------------------------------------------------------");
-
-			}
-			
+			ReportingUtil.reportException( e );						
 			throw new DineException( e );
 		}
 		finally {
