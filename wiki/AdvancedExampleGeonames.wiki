@@ -17,7 +17,6 @@ createStep({
 			result.appendChild( <place lat={this.jsonObj.geonames[n].lat} lng={this.jsonObj.geonames[n].lng}>{this.jsonObj.geonames[n].name}</place> );
 		
 		createFile( "alexanderplatz.xml", "<?xml version=\"1.0\"?>\n"+result.toXMLString() );
-
 	}
 });
 }}}
