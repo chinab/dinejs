@@ -1,4 +1,4 @@
-package de.alombra.dine.steps.execution.http;
+package de.alombra.dine.http;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
@@ -7,7 +7,7 @@ import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 
-import de.alombra.dine.steps.execution.http.cookie.AcceptAllCookieSpec;
+import de.alombra.dine.http.cookie.AcceptAllCookieSpec;
 
 public class HttpUtil {
 	

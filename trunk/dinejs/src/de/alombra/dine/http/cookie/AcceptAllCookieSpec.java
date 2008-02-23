@@ -1,4 +1,4 @@
-package de.alombra.dine.steps.execution.http.cookie;
+package de.alombra.dine.http.cookie;
 
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.cookie.CookieSpecBase;

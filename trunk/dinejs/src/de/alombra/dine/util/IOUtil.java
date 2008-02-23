@@ -5,7 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStream;
-import java.util.Properties;
+import java.util.LinkedList;
+import java.util.List;
 
 import de.alombra.dine.exception.DineException;
 
@@ -41,6 +42,31 @@ public class IOUtil {
 		}
 	}
 	
+	public static String getContentLengthUnkown( InputStream stream ) {
+		
+		try {
+			// TODO refactor, this is very ugly and perhaps unstable code!
+			int b;
+			
+			List<Byte> byteList = new LinkedList<Byte>();
+			
+			while ( ( b = stream.read() ) != -1 )
+				byteList.add( new Byte( (byte)b ) );
+	
+			byte[] bytes = new byte[ byteList.size() ];
+			
+			int n=0;
+			
+			for ( Byte oneByte : byteList )
+				bytes[n++] = oneByte;
+			
+			return new String( bytes );
+		}
+		catch( Exception e ) {
+			throw new DineException("unable to read inputStream intto String", e );
+		}
+	}
+	
 	public static String getFileContent( String fileName ) {
 
 		File file = new File( fileName );
@@ -52,20 +78,6 @@ public class IOUtil {
 			return IOUtil.getContent( new FileInputStream( file ) );
 		} 
 		catch ( FileNotFoundException e ) {
-			throw new DineException( e );
-		}
-	}
-	
-	public static Properties loadProperties( String fileName ) {
-		
-		try {
-			
-			Properties props = new Properties();
-			props.load( new FileInputStream( fileName ) );
-			
-			return props;
-		}
-		catch ( Exception e ) {
 			throw new DineException( e );
 		}
 	}
