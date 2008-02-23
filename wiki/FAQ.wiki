@@ -3,7 +3,9 @@
 
 === What XML parser is the javascript code using? ===
 
-It uses *E4X*, check [http://en.wikipedia.org/wiki/E4X wikipedia] to learn more.
+It uses *E4X*, check [http://en.wikipedia.org/wiki/E4X wikipedia] and the [http://developer.mozilla.org/en/docs/E4X_tutorial in-depth tutorial from Mozilla] to learn more.
+
+
 
 === Why do I have to write a *step* for each website I want to parse, couldn't I parse more than one in a *step*? === 
 
