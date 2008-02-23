@@ -3,6 +3,7 @@ package de.alombra.dine.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -10,6 +11,19 @@ import de.alombra.dine.exception.DineException;
 
 public class IOUtil {
 
+	public static void createFile( String fileName, String content ) {
+		
+		try {
+	        FileWriter out = new FileWriter( new File( fileName ) );
+	        out.write( content );
+	        out.close();
+		}
+		catch ( Exception e ) {
+		
+			
+		}
+	}
+	
 	public static String getContent( InputStream stream ) {
 		
 		try {
