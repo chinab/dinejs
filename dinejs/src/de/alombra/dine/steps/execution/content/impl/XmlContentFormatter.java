@@ -14,6 +14,8 @@ public class XmlContentFormatter implements ContentFormatter {
 
 		try {
 			String xml = method.getResponseBodyAsString();
+			
+			// see https://bugzilla.mozilla.org/show_bug.cgi?id=336551
 			xml = xml.substring( xml.indexOf("?>")+2, xml.length() ).trim();
 			
 			step.setXmlStr( xml );

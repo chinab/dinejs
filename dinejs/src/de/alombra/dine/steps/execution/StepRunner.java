@@ -2,9 +2,9 @@ package de.alombra.dine.steps.execution;
 
 import org.apache.commons.httpclient.HttpMethod;
 
+import de.alombra.dine.http.HttpUtil;
 import de.alombra.dine.steps.Step;
 import de.alombra.dine.steps.execution.content.ContentFormatterFactory;
-import de.alombra.dine.steps.execution.http.HttpUtil;
 import de.alombra.dine.util.ReportingUtil;
 
 public class StepRunner implements Runnable {

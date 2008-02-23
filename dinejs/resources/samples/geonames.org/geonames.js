@@ -11,7 +11,7 @@ createStep({
 		
 		print( result.toXMLString() );
 		
-		createFile( this.getLocation()+".xml", "<?xml version=\"1.0\"?>\n"+result.toXMLString() )
+		createFile( this.getLocation()+".xml", "<?xml version=\"1.0\"?>\n"+result.toXMLString() );
 
 	},
 	
