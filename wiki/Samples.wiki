@@ -4,9 +4,10 @@
 
 == Simple examples ==
 
- * [SimpleExampleAllEmailAddresses fetch all email addresses from a page]
- * [SimpleExampleAllOutgoingLinks check all outgoing links of a page]
+ * [SimpleExampleAllEmailAddresses Fetching all email addresses from a page]
+ * [SimpleExampleAllOutgoingLinks Checking all outgoing links of a page]
 
 == Advanced examples ==
 
- * [AdvancedExampleFindXingProfiles find and parse xing profiles via google]
+ * [AdvancedExampleGeonames Querying the geonames.org JSON API and create an XML file from the results]
+ * [AdvancedExampleFindXingProfiles Findinf and parsing xing profiles via google]
