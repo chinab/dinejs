@@ -10,4 +10,4 @@
 == Advanced examples ==
 
  * [AdvancedExampleGeonames Querying the geonames.org JSON API and create an XML file from the results]
- * [AdvancedExampleFindXingProfiles Findinf and parsing xing profiles via google]
+ * [AdvancedExampleFindXingProfiles Finding and parsing xing profiles via google]
