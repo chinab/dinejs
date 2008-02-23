@@ -76,3 +76,7 @@ function addStep( stepName, stepParameters ) {
 function print( str )  {
 	out.println( str );
 }
+
+function createFile( fileName, content ) {
+	Packages.de.alombra.dine.util.IOUtil.createFile( fileName, content );
+}
