@@ -9,6 +9,7 @@ import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
 import de.alombra.dine.exception.DineException;
+import de.alombra.dine.steps.Executable;
 import de.alombra.dine.steps.Step;
 import de.alombra.dine.steps.execution.impl.BlockingExecutionContext;
 import de.alombra.dine.util.IOUtil;
@@ -19,6 +20,8 @@ public class StepBuilder {
 	private static final String DINE_JS_CODE = IOUtil.getContent( StepBuilder.class.getClassLoader().getResourceAsStream( "de/alombra/dine/steps/build/base.js" ) );
 	
 	private Step step;
+	
+	private Executable executable;
 	
 	private static final Log logger = LogFactory.getLog( StepBuilder.class );
 
@@ -66,4 +69,14 @@ public class StepBuilder {
 	public Step getStep() {
 		return this.step;
 	}
+
+	public Executable getExecutable() {
+		return executable;
+	}
+
+	public void setExecutable(Executable executable) {
+		this.executable = executable;
+	}
+	
+	
 }

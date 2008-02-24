@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import de.alombra.dine.exception.DineException;
+import de.alombra.dine.steps.Executable;
 import de.alombra.dine.steps.Step;
 import de.alombra.dine.steps.StepMemory;
 import de.alombra.dine.steps.StepParameters;
@@ -22,6 +23,8 @@ public class BlockingExecutionContext implements ExecutionContext {
 	private StepFactory factory;
 	
 	private StepMemory memory = new SynchronizedStepMemory();
+	
+	private String resultProcessorName;
 	
 	private static final Log logger = LogFactory.getLog( BlockingExecutionContext.class );
 	
@@ -46,13 +49,31 @@ public class BlockingExecutionContext implements ExecutionContext {
 		}
 		return instance;
 	}
+
+	public ExecutionContext setResultProcessor( String name ) {
+		this.resultProcessorName = name;
+		return this;
+	}
+
+	public boolean hasResultProcessor() {
+		return ( null != this.resultProcessorName );
+	}
+	
+	public Executable getResultProcessor() {
+		Executable resultProcessor = this.factory.getExecutable( this.resultProcessorName );
+		
+		resultProcessor.setMemory( this.memory );
+		
+		return resultProcessor;
+	}	
+	
 	
 	public ExecutionContext addStep( String name ) {
 		try {
 			return addStep( this.factory.getStep( name ) );
 		}
 		catch ( DineException de ) {
-			logger.warn("Unable to add step ["+name+"]" );
+			logger.warn("Unable to add step ["+name+"]", de );
 			return this;
 		}
 	}

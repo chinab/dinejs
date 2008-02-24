@@ -51,6 +51,15 @@ var BaseStep = Class.create({
 		
 		addToMemory: function( key, value ) {
 			return this.memories.add( key, value );
+		},
+		
+		fromMemory: function( key ) {
+			return this.memories.get( key );
+		},
+		
+		memoryKeys: function() {
+			var keyNames = eval("("+ Packages.de.alombra.dine.util.JsUtil.getJsonRepresentation( this.memories.keyNames() ) +")");
+			return keyNames;
 		} 
 		
 });
@@ -61,6 +70,14 @@ function createStep( stepImpl ) {
 	creator.setStep( 
 		new Packages.de.alombra.dine.steps.Step( new CustomStep() ) 
 	);	
+}
+
+function createExecutable( executableImpl ) {
+	var CustomExecutable = Class.create( BaseStep, executableImpl );
+	
+	creator.setExecutable( 
+		new Packages.de.alombra.dine.steps.Executable( new CustomExecutable() ) 
+	);		
 }
 
 function addStep( stepName, stepParameters ) {

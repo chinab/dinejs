@@ -15,12 +15,13 @@ public class Runner {
 	public static void main(String[] args) {
 		
 		if ( args.length < 4 ) {
-			System.err.println("Usage: java -jar dine-all.jar -d <stepDir> -s <seedStep>");
+			System.err.println("Usage: java -jar dine-all.jar -d <stepDir> -s <seedStep> [-r <resultProcessor> ]");
 			System.exit(-1);
 		}
 		
 		String jsDir = null;
 		String seed  = null;
+		String resultProcessor = null;
 		
 		for ( int n=0; n<args.length ; n++ ) {
 			
@@ -29,15 +30,20 @@ public class Runner {
 			
 			if ( args[n].equals("-s") )
 				seed = args[n+1];
+			
+			if ( args[n].equals("-r") )
+				resultProcessor = args[n+1];
 		}
-		
-		//String jsDir 				= "/Users/alombra/Entwicklung/projekte/dine/resources/samples";
+
 		int maxConcurrentThreads 	= 50;
 		//List<String> seedStepNames 	= Arrays.asList( new String[] { "checkExternalLinks" } );
 		List<String> seedStepNames 	= Arrays.asList( new String[] { seed } );
 		
 		ExecutionContext ctx = BlockingExecutionContext.newInstance( new CachingFileStepFactory( jsDir ) );
 
+		if ( null != resultProcessor)
+			ctx.setResultProcessor( resultProcessor );
+		
 		for ( String seedStepName : seedStepNames ) 
 			ctx.addStep( seedStepName );
 		
