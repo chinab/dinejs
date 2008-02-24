@@ -25,7 +25,7 @@ public class MultiThreadedStepExecutor implements StepExecutor {
 		this.executorService = Executors.newFixedThreadPool( threadPoolSize );
 	}
 
-
+	
 	public void start() {
 		
 		while( true ) {
@@ -38,6 +38,14 @@ public class MultiThreadedStepExecutor implements StepExecutor {
 			}
 			
 			if ( threadCount == 0 ) {
+				
+				if ( executionContext.hasResultProcessor() ) {
+				
+					if ( logger.isInfoEnabled() )
+						logger.info("running result processor");
+				
+					executionContext.getResultProcessor().run();
+				}
 				
 				if ( logger.isInfoEnabled() )
 					logger.info("done");

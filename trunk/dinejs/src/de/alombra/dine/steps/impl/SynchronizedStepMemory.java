@@ -27,4 +27,9 @@ public class SynchronizedStepMemory implements StepMemory {
 		return memories.containsKey( key ); 
 	}
 
+	public String[] keyNames() {
+		
+		return this.memories.keySet().toArray( new String[] {} );
+	}
+
 }

@@ -1,5 +1,6 @@
 package de.alombra.dine.steps.execution;
 
+import de.alombra.dine.steps.Executable;
 import de.alombra.dine.steps.Step;
 import de.alombra.dine.steps.StepParameters;
 
@@ -13,4 +14,9 @@ public interface ExecutionContext {
 
 	public Step getNextStep();
 
+	public ExecutionContext setResultProcessor( String name );
+	
+	public Executable getResultProcessor();
+	
+	public boolean hasResultProcessor();
 }

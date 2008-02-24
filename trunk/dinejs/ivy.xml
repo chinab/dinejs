@@ -4,6 +4,7 @@
         <dependency		org="commons-httpclient" 	name="commons-httpclient"		rev="3.1-rc1"	/>
         <dependency		org="log4j" 							name="log4j" 													rev="1.2.13"		/>
         <dependency		org="rhino"								name="js"															rev="1.6R7"			/>
-        <dependency		org="net.sourceforge"			name="htmlcleaner"									rev="1.6"			/>        
+        <dependency		org="net.sourceforge"			name="htmlcleaner"									rev="1.6"			/>
+        <dependency		org="de.alombra"			name="jsoncode"									rev="1.0"			/>                  
     </dependencies>
 </ivy-module>
