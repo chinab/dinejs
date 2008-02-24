@@ -56,20 +56,27 @@
 		<mkdir dir="${build.onejar.dir}"/>
 		<mkdir dir="${build.onejar.dir}/main"/>
 		<mkdir dir="${build.onejar.dir}/lib"/>
-		<copy todir="${build.onejar.dir}">
-			<fileset dir="${resources.dir}/onejar"/>
-		</copy>
+		
+		<unzip dest="${build.onejar.dir}" src="${resources.dir}/onejar/onejar.zip"/>
+
+		
 		<copy todir="${build.onejar.dir}/lib">
 			<fileset dir="${lib.dir}/default">
 				<include name="**/*.jar"/>
 			</fileset>
 		</copy>
-		<copyfile dest="${build.onejar.dir}/main/dine-${version}.jar" src="${dist.dir}/dine-${version}.jar"/>
 		
-  	<jar 
+		<copy todir="${build.onejar.dir}/main/">
+			<fileset dir="${dist.dir}">
+			    <include name="dine-${version}.jar"/>
+			</fileset>
+
+		</copy>
+
+  		<jar 
   			destfile="${dist.dir}/dine-${version}-all.jar"
   	    basedir="${build.onejar.dir}"
-  	>
+  		>
 	    <manifest>
 	      <attribute name="Built-By" value="ssc"/>
 	    	<attribute name="Implementation-Title" value="dine"/> 
