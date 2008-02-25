@@ -1,3 +1,16 @@
+#summary finding news entries for the same topic
+
+== What do we wanna do in this example? ==
+
+We want to find news from different RSS feeds that are about the same topic (like google news does it)
+
+== How can we achieve this? ==
+
+ We fetch the RSS feeds, and have the webpages containing the actual news tagged by [http://tagthe.net tagthe.net], which gives us information about topics, persons and locations contained in that news. Later on, we compare the tags for each newssite and we will assume that if more than 25% of the tags are the same, the news are about the same topic.
+
+== Step by Step ==
+
+At first we write a step that fetches some rss feeds and find the news URIs in them. Each of these URIs will be given to another step that will tag them.
 
 {{{
 createStep({
@@ -25,6 +38,7 @@ createStep({
 });
 }}}
 
+The next step makes a request to tagthe.net, parses the XML answer for topic, location and persons tags and saves them as XML in the Execution Context for further processing.
 
 {{{
 createStep({
@@ -56,6 +70,11 @@ createStep({
 	}
 });
 }}}
+
+
+|| *NOTE*:  The following code is just a proof of concept that we really find results (it eats lot of memory...). Statistical analysis should not be done in Javascript (particularly not in Javascript interpreted by Java) but with the use of a database or XML processing utilities, it is not the intention of dine to be usable for this ||
+
+This is not a step, its a result processor, which is Javascript code that is automatically executed when all steps are finished. It loads the found tags from the Execution Context and compares them. It's messy and kinda unreadable but it's just a proof that we really find some results..
 
 {{{
 createExecutable({
