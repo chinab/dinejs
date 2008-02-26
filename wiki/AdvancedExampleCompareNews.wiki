@@ -6,7 +6,7 @@ We want to find news from different RSS feeds that are about the same topic (lik
 
 == How can we achieve this? ==
 
- We fetch the RSS feeds, and have the webpages containing the actual news tagged by [http://tagthe.net tagthe.net], which gives us information about topics, persons and locations contained in that news. Later on, we compare the tags for each newssite and we will assume that if more than 25% of the tags are the same, the news are about the same topic.
+We fetch the RSS feeds, and have the webpages containing the actual news tagged by [http://tagthe.net tagthe.net], which gives us information about topics, persons and locations contained in that news. Later on, we compare the tags for each newssite and we will assume that if more than 25% of the tags are the same, the news are about the same topic.
 
 == Step by Step ==
 
