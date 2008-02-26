@@ -151,5 +151,6 @@ function compareXML( taggedResults, url, otherUrl, tagType ) {
 					var tagNum = Math.max( urlTagNum, otherUrlTagNum );
 
 					return ( urlTagNum != 0 ) ? matchingTagNum/tagNum : 0;	 
+                 }
 }
 }}}
