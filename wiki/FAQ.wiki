@@ -7,6 +7,7 @@
 
 In fact a step is an implementation of the [http://en.wikipedia.org/wiki/Command_pattern command pattern].
 
+----
 
 === Why should *steps* ONLY consist of methods and NEVER save information in instance variables? ===
 
@@ -14,13 +15,14 @@ In fact a step is an implementation of the [http://en.wikipedia.org/wiki/Command
 
 This architecture allows a very low memory footprint of *dine*.
 
+----
+
 === What XML parser is the javascript code using? ===
 
 It uses _E4X _, check [http://en.wikipedia.org/wiki/E4X wikipedia] and the [http://developer.mozilla.org/en/docs/E4X_tutorial in-depth tutorial from Mozilla] to learn more.
 
+----
 
 === Why is there no XPath support? ===
 
 I think that _E4X _ is much more intuitive and easier to use than _XPath_, so the *dine* API currently only offers support for _E4X _. Maybe there will also be an XPath API in the future, because a lot of people are familiar with it and it is much more powerful than _E4X _, yet harder to handle. 
-
-
