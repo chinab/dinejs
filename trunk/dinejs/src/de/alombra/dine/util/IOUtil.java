@@ -1,21 +1,28 @@
 package de.alombra.dine.util;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import de.alombra.dine.run.RuntimeConfig;
+
 
 public class IOUtil {
 
   public static final Log logger = LogFactory.getLog( IOUtil.class );
   
-  public static void createFolder( String path ) {
+  public static void createFolder( String folderName ) {
+    
+    String path = RuntimeConfig.getInstance().getDownloadBaseDir()+"/"+folderName;
     
     File file = new File( path );
     
@@ -30,31 +37,40 @@ public class IOUtil {
   
 	public static void writeToFile( InputStream inputStream, String fileName ) {
 		
-		File file = new File( fileName );
-		FileOutputStream fileOutputStream = null;
-		try {
-			if ( !file.exists() )
-				file.createNewFile();
+	  String path = RuntimeConfig.getInstance().getDownloadBaseDir()+"/"+fileName;
 
-			fileOutputStream = new FileOutputStream( file );
-			
-			int nextByte; 
-			
-			while ( ( nextByte = inputStream.read() ) != -1 ) {
-				fileOutputStream.write( nextByte );
-			}
-		}
-		catch( Exception e ) {
-			throw new RuntimeException( e );
-		}
-		finally {
-			try {
-				fileOutputStream.close();
-			} catch (IOException e) {
-				throw new RuntimeException("Unable to close file output stream", e);
-			}
-		}
-	}
+
+    File file = new File( path );
+    FileOutputStream fileOutputStream = null;
+    Writer out = null;
+
+    try {
+
+      if ( !file.exists() )
+        file.createNewFile();
+
+      fileOutputStream = new FileOutputStream( file );
+
+      int nextByte; 	      
+
+      out = new BufferedWriter( new OutputStreamWriter( fileOutputStream, "UTF8" ) );
+
+      while ( ( nextByte = inputStream.read() ) != -1 ) {
+        out.write( nextByte );
+      }
+      
+    }
+    catch( Exception e ) {
+      throw new RuntimeException( e );
+    }
+    finally {
+      try {
+        out.close();
+      } catch (IOException e) {
+        throw new RuntimeException("Unable to close file output stream", e);
+      }
+    }
+  }	  
 	
 	public static List<File> scanDirectory( File baseDir ) {
 		

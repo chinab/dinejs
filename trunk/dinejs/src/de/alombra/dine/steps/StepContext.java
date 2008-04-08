@@ -1,7 +1,8 @@
 package de.alombra.dine.steps;
 
 import java.io.ByteArrayInputStream;
-import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +36,15 @@ public class StepContext {
 		return this;
 	}
 
+  public String encode( String param ) {
+    try {
+      return URLEncoder.encode( param, "UTF-8" );
+    }
+    catch ( UnsupportedEncodingException e ) {
+      throw new RuntimeException( "Unable to encode: "+param, e );
+    }
+  }	
+	
 	public void addStep( String stepName ) {
 	  
 	  StepInstruction instruction = new StepInstruction();

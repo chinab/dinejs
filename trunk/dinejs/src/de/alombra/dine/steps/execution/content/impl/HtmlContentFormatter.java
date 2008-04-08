@@ -18,7 +18,7 @@ public class HtmlContentFormatter implements ContentFormatter {
 
 			cleaner.clean();			
 
-			return cleaner.getXmlAsString();
+			return new String( cleaner.getXmlAsString().getBytes(), "UTF-8" );
 			
 		} 
 		catch (Exception e) {
