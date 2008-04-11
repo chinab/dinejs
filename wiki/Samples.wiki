@@ -4,3 +4,4 @@
   * [SampleGeocodeAdressGoogle Geocode an address with the Google Maps API]
   * [SampleDownloadRoms Download NES roms from a website]
   * [SampleTagNews Read a newsfeed and find tags for the content of the articles]
+  * [SampleXingProfile Parse a XING profile] 
