@@ -107,6 +107,10 @@ public class StepContext {
 		return parameters.get( name );
 	}
 
+  public boolean hasParam( String name ) {
+    return parameters.containsKey( name );
+  }	
+	
 	public StepMemory getMemory() {
 	  return this.runner.getStepExecutor().getStepMemory();
 	}

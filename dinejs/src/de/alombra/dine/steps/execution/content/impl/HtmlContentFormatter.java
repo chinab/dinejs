@@ -3,28 +3,25 @@ package de.alombra.dine.steps.execution.content.impl;
 import org.apache.commons.httpclient.HttpMethod;
 import org.htmlcleaner.HtmlCleaner;
 
-import de.alombra.dine.steps.execution.content.ContentFormatter;
+import de.alombra.dine.steps.execution.content.Content;
 
-public class HtmlContentFormatter implements ContentFormatter {
+public class HtmlContentFormatter extends AbstractContentFormatter {
 
-	public String format( HttpMethod method ) {
-
-		try {
-			
-			HtmlCleaner cleaner = new HtmlCleaner( method.getResponseBodyAsStream() );
-			
-			cleaner.setNamespacesAware( false );
-			cleaner.setOmitXmlDeclaration( true );
-
-			cleaner.clean();			
-
-			return new String( cleaner.getXmlAsString().getBytes(), "UTF-8" );
-			
-		} 
-		catch (Exception e) {
-			throw new RuntimeException("unable to clean html ", e );
-		}
-
-	}
+  @Override
+  public Content doFormat( HttpMethod method, String contentType ) throws Exception {
+    
+    HtmlCleaner cleaner = new HtmlCleaner( method.getResponseBodyAsStream() );
+    
+    cleaner.setNamespacesAware( false );
+    cleaner.setOmitXmlDeclaration( true );
+    cleaner.setTranslateSpecialEntities( true );
+    
+    cleaner.clean();      
+    
+    return new Content(
+                  cleaner.getXmlAsString(),
+                  ContentTypeHelper.getEncodingFromHttpHeader( contentType )
+                 );
+  }
 
 }

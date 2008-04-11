@@ -4,5 +4,5 @@ import org.apache.commons.httpclient.HttpMethod;
 
 public interface ContentFormatter {
 
-	public String format( HttpMethod method );
+	public String format( HttpMethod method, String contentType );
 }

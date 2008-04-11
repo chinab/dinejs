@@ -11,14 +11,14 @@ public class ContentFormatterFactory {
 	private static final ContentFormatter jsonContentFormatter	= new JsonContentFormatter();
 	
 	public static ContentFormatter getFormatter( String contentType ) {
-		
+	  
 		if ( contentType.contains("html") )
 			return htmlContentFormatter;
 
 		if ( contentType.contains("xml") )
 			return xmlContentFormatter;
 		
-		if ( contentType.contains("json") )
+		if ( contentType.contains("json") || contentType.contains( "javascript" ) )
 			return jsonContentFormatter;
 		
 		throw new RuntimeException("unable to handle content "+contentType );

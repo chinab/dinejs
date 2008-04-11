@@ -1,7 +1,14 @@
 createStep({
+
 	getUrl: function( ctx ) {
+	
+		if ( ctx.hasParam("url") == false ) {
+			return this.getRootUrl();
+		}
+	
 		return ctx.getParam("url");
 	},
+	
 	run: function( ctx ) {
 
 		var xml = new XML( ctx.getResponse() );
@@ -12,18 +19,22 @@ createStep({
 			
 			if ( this.isInternalLink( next ) == true ) {
 			
-				next = "http://newsride.org/"+next;
+				next = this.getRootUrl()+next;
 								
 				if ( ctx.getMemory().hasKey( next ) == false ) {
 				
-					print( "adding:"+next );
+					print( "adding: "+next );
 					
 					ctx.getMemory().put( next, "" );
-					ctx.addStep("/crawl", createMap( { "url": next } ) );
+					ctx.addStep("/visitEveryPage", createMap( { "url": next } ) );
 				}
 
 			}
 		}
+	},
+	
+	getRootUrl: function() {
+		return "http://newsride.org";
 	},
 	
 	isInternalLink: function( link ) {
