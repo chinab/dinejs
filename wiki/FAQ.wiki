@@ -1,6 +1,10 @@
 #summary frequently asked questions
 #labels Featured
 
+  * *Why is this piece of software called dine?*
+
+  Actually it doesn't have anything to do with eating ;) It is inspired from the name of the [http://en.wikipedia.org/wiki/Navajo_language Navajo language] which was used in World War II as a way of secret communication. That language seems to be so cryptic and hard to understand for outsiders, that no one could find out what the [http://en.wikipedia.org/wiki/Code_talker#Use_of_Navajo code talkers] were speaking about. It sometimes seems to me that making a piece of code understand information found on the internet is an equally hard task, so I chose this name. 
+
   * *Why do I have to write a step for each website I want to parse, couldn't I parse more than one in a step?* 
 
   dine executes your steps concurrently and the best way to parallelize execution is to start a single thread for each website to parse.
