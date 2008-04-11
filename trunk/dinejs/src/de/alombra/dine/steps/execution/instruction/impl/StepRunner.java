@@ -27,7 +27,7 @@ public class StepRunner extends AbstractInstructionRunner<StepInstruction> {
     String contentType = result.getHttpMethod().getResponseHeader("Content-Type").getValue();
     
     return ContentFormatterFactory.getFormatter( contentType )
-                                  .format( result.getHttpMethod() );	  	  
+                                  .format( result.getHttpMethod(), contentType );	  	  
 	}
 	
 	public void run() {
