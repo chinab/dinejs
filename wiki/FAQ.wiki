@@ -17,7 +17,7 @@
 
 
 
-  * *What XML parser is the javascript code using?*
+  * *What XML parser is the !JavaScript code using?*
 
   It uses E4X, check [http://en.wikipedia.org/wiki/E4X wikipedia] and the [http://developer.mozilla.org/en/docs/E4X_tutorial in-depth tutorial from Mozilla] to learn more.
 
