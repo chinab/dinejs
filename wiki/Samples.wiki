@@ -1,7 +1,4 @@
-#summary sample steps
+#summary samples
 #labels Featured
 
-
-Due to a complete rewrite of *dine*, the old examples are no longer valid, so I took them out of here.
-
-New ones are soon to come!
+[SampleGeocodeAdressGoogle Geocode an address with the Google Maps API]
