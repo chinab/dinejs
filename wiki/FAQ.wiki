@@ -1,7 +1,7 @@
 #summary frequently asked questions
 #labels Featured
 
-=== Why do I have to write a *step* for each website I want to parse, couldn't I parse more than one in a *step*? === 
+  * *Why do I have to write a step for each website I want to parse, couldn't I parse more than one in a step?* 
 
   dine executes your steps concurrently and the best way to parallelize execution is to start a single thread for each website to parse.
 
@@ -9,21 +9,21 @@
 
 
 
-=== Why should steps ONLY consist of methods and NEVER save information in instance variables? ===
+  * *Why should steps ONLY consist of methods and NEVER save information in instance variables?*
 
-  dine compiles your steps only once at startup and uses a [http://en.wikipedia.org/wiki/Singleton_pattern singleton] instance everytime a *step* is executed. That means that steps need to be stateless! 
+  Dine compiles your steps only once at startup and uses a [http://en.wikipedia.org/wiki/Singleton_pattern singleton] instance everytime a step is executed. That means that steps need to be stateless! 
 
   This architecture allows a very low memory footprint of dine.
 
 
 
-=== What XML parser is the javascript code using? ===
+  * *What XML parser is the javascript code using?*
 
   It uses E4X, check [http://en.wikipedia.org/wiki/E4X wikipedia] and the [http://developer.mozilla.org/en/docs/E4X_tutorial in-depth tutorial from Mozilla] to learn more.
 
 
-=== Why is there no XPath support? ===
+  * *Why is there no XPath support? *
 
-I think that E4X is much more intuitive and easier to use than XPath, so the dine API currently only offers support for E4X. 
+  I think that E4X is much more intuitive and easier to use than XPath, so the dine API currently only offers support for E4X. 
 
-Maybe there will also be an XPath API in the future, because a lot of people are familiar with it and it is much more powerful than E4X, yet harder to handle. If you're interested in implementing this, feel free to join this project!
+  Maybe there will also be an XPath API in the future, because a lot of people are familiar with it and it is much more powerful than E4X, yet harder to handle. If you're interested in implementing this, feel free to join this project!
