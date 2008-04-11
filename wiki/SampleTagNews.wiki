@@ -1,0 +1,493 @@
+#summary read a newsfeed and find tags for the articles via tagthe.net
+
+
+= Code = 
+
+{{{
+createStep({
+	getUrl: function( ctx ) {
+		return "http://www.tagesschau.de/newsticker.rdf";
+	},
+	
+	run: function( ctx ) {		
+
+		var xml = new XML( ctx.getResponse() );
+			
+		for each( var article in xml..item ) {
+			print( "Found article: "+article.title+" ("+article.link+")" );
+			
+			ctx.addStep( "/tagArticle", createMap({ url: article.link, title: article.title }) );
+		}
+	}
+	
+});
+}}}
+
+{{{
+createStep({
+	getUrl: function( ctx ) {
+		return "http://tagthe.net/api/?url="+ctx.getParam("url");
+	},
+	run: function( ctx ) {		
+		
+		var xml = new XML( ctx.getResponse() );
+		
+		var output = <article title={ctx.getParam("title")} url={ctx.getParam("url")}/>;
+
+		
+		for each ( var tags in xml..dim ) {
+			
+			for each ( var tag in tags.item ) {
+			
+				output.appendChild(
+							<tag type={tags.@type}>{tag.text()}</tag>
+						);
+						
+			}
+			
+		}
+		
+		print( output.toXMLString() );
+	}
+});
+}}}
+
+
+= Sample Output = 
+
+{{{
+Found article: Bundestag lockert Stammzellgesetz (http://www.tagesschau.de/inland/stammzellforschung16.html)
+Found article: Herzog warnt vor "Rentnerdemokratie" (http://www.tagesschau.de/inland/rentendebatte2.html)
+Found article: FDP kritisiert mangelnden Sparwillen der Koalition (http://www.tagesschau.de/inland/bundeshaushalt8.html)
+Found article: Sarkozy: Entführte Jacht ist wieder frei (http://www.tagesschau.de/ausland/jachtbefreiung2.html)
+Found article: Olympia-Eröffnung: UN-Generalsekretär Ban wohl nicht dabei (http://www.tagesschau.de/ausland/banzuolympia2.html)
+Found article: Berlusconi steht in Italien vor einem Comeback (http://www.tagesschau.de/ausland/italienwahl8.html)
+Found article: G7 und Banken ringen um Regulierungskonzept (http://www.tagesschau.de/wirtschaft/fruehjahrstagung2.html)
+Found article: 40. Jahrestag des Attentats auf Rudi Dutschke (http://www.rbb-online.de/_/nachrichten/politik/beitrag_jsp/key=news7300969.html)
+Found article: Statistik: 17.607 rechtsextreme - 5866 linksextreme Straftaten (http://www.tagesschau.de/inland/politischestraftaten2.html)
+Found article: bundestag.de: Erster Live-Chat mit Abgeordneten (http://www.tagesschau.de/inland/bundestagschat2.html)
+Found article: Nach der Krise: Unicef wählt neuen Vorsitzenden (http://www.tagesschau.de/inland/unicef126.html)
+Found article: Bush stoppt Truppenrückzug aus Irak (http://www.tagesschau.de/ausland/petraeus18.html)
+Found article: Prozessauftakt gegen mutmaßliche LLB-Erpresser (http://www1.ndr.de/nachrichten/mecklenburg-vorpommern/liechtenstein20.html)
+Found article: ABN Amro vergibt keine Wohnbaukredite mehr (http://boerse.ard.de/content.jsp?key=dokument_286602)
+Found article: Diskussion um Internetangebote von ARD und ZDF (http://www3.ndr.de/ndrtv_pages_std/0,3147,OID4695492_REF2488,00.html)
+Found article: Uefa-Cup: Glückliche Bayern kämpfen sich weiter (http://sport.ard.de/sp/fussball/news200804/10/getafe_bayern_spielbericht.jsp)
+Found article: Funktionäre sagen Millionen Freizeitkickern den Kampf an (http://www.tagesschau.de/inland/hartplatzhelden2.html)
+Found article: Jetzt wird Europa demokratisch! (http://www.tagesschau.de/schlusslicht/sark2.html)
+<article title="Herzog warnt vor &quot;Rentnerdemokratie&quot;" url="http://www.tagesschau.de/inland/rentendebatte2.html">
+  <tag type="topic">Ältere</tag>
+  <tag type="topic">Kasse</tag>
+  <tag type="topic">Inland</tag>
+  <tag type="topic">Altbundespräsident</tag>
+  <tag type="topic">Rentnerdemokratie</tag>
+  <tag type="topic">Jüngere</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Meinhard Miegel</tag>
+  <tag type="person">Roman Herzog</tag>
+  <tag type="person">Gunnar Winkler</tag>
+  <tag type="person">Walter Hirrlinger</tag>
+  <tag type="title">Herzog warnt vor "Rentnerdemokratie" | tagesschau.de</tag>
+  <tag type="location">Bonner</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Bundestag lockert Stammzellgesetz" url="http://www.tagesschau.de/inland/stammzellforschung16.html">
+  <tag type="topic">Forschung</tag>
+  <tag type="topic">Stammzelle</tag>
+  <tag type="topic">Stammzellforschung</tag>
+  <tag type="topic">Stichtag</tag>
+  <tag type="topic">Bundestag</tag>
+  <tag type="topic">Stammzellgesetz</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">Uhr</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Annette Schavan</tag>
+  <tag type="person">Christian Wulff</tag>
+  <tag type="person">B. Sonhüter</tag>
+  <tag type="person">Jacqueline Boysen</tag>
+  <tag type="title">Bundestag lockert Stammzellgesetz | tagesschau.de</tag>
+  <tag type="location">Deutschland</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="FDP kritisiert mangelnden Sparwillen der Koalition" url="http://www.tagesschau.de/inland/bundeshaushalt8.html">
+  <tag type="topic">Steinbrück</tag>
+  <tag type="topic">Peer</tag>
+  <tag type="topic">Koalition</tag>
+  <tag type="topic">Hinweis</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="topic">Uhr</tag>
+  <tag type="topic">Bundeshaushalt</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Heidemarie Wieczorek-</tag>
+  <tag type="person">Otto Fricke</tag>
+  <tag type="title">FDP kritisiert mangelnden Sparwillen der Koalition | tagesschau.de</tag>
+  <tag type="location">Deutschland</tag>
+  <tag type="location">Hammer</tag>
+  <tag type="location">Haushaltes</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Sarkozy: Entführte Jacht ist wieder frei" url="http://www.tagesschau.de/ausland/jachtbefreiung2.html">
+  <tag type="topic">Weltatlas</tag>
+  <tag type="topic">Jacht</tag>
+  <tag type="topic">Sendung</tag>
+  <tag type="topic">Entführte</tag>
+  <tag type="topic">Pirat</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Ausland</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Nicolas Sarkozy</tag>
+  <tag type="person">Olympia-Eröffnung</tag>
+  <tag type="title">Sarkozy: Entf?hrte Jacht ist wieder frei | tagesschau.de</tag>
+  <tag type="location">Somalia</tag>
+  <tag type="location">Simbabwe</tag>
+  <tag type="location">Tibet</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Italien</tag>
+  <tag type="location">US</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Olympia-Eröffnung: UN-Generalsekretär Ban wohl nicht dabei" url="http://www.tagesschau.de/ausland/banzuolympia2.html">
+  <tag type="topic">Forum</tag>
+  <tag type="topic">Sendung</tag>
+  <tag type="topic">Dossier</tag>
+  <tag type="topic">Konflikt</tag>
+  <tag type="topic">Ban</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">Uhr</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Klaus Scherer</tag>
+  <tag type="person">Von Protesten</tag>
+  <tag type="person">Marie Okabe</tag>
+  <tag type="person">U. Lielischkies</tag>
+  <tag type="person">Olympia-Eröffnung</tag>
+  <tag type="title">Olympia-Er?ffnung: UN-Generalsekret?r Ban wohl nicht dabei | tagesschau.de</tag>
+  <tag type="location">Buenos Aires</tag>
+  <tag type="location">Peking</tag>
+  <tag type="location">Argentinien</tag>
+  <tag type="location">Tibet</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Seattle</tag>
+  <tag type="location">Washington</tag>
+  <tag type="location">US</tag>
+  <tag type="location">USA</tag>
+  <tag type="location">San Francisco</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Berlusconi steht in Italien vor einem Comeback" url="http://www.tagesschau.de/ausland/italienwahl8.html">
+  <tag type="topic">Parlamentswahl</tag>
+  <tag type="topic">Sendung</tag>
+  <tag type="topic">Hinweis</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Ausland</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">Uhr</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="topic">Triumph</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Bernhard Wabnitz</tag>
+  <tag type="person">Von Bernhard Wabnitz</tag>
+  <tag type="person">J. Seisselberg</tag>
+  <tag type="person">Silvio Berlusconi</tag>
+  <tag type="person">B. Wabnitz</tag>
+  <tag type="title">Berlusconi steht in Italien vor einem Comeback | tagesschau.de</tag>
+  <tag type="location">Seisselberg</tag>
+  <tag type="location">Neapel</tag>
+  <tag type="location">Rom</tag>
+  <tag type="location">Tibet</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Italien</tag>
+  <tag type="location">US</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="G7 und Banken ringen um Regulierungskonzept" url="http://www.tagesschau.de/wirtschaft/fruehjahrstagung2.html">
+  <tag type="topic">Liste</tag>
+  <tag type="topic">Sendung</tag>
+  <tag type="topic">Bank</tag>
+  <tag type="topic">Finanzkrise</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">Uhr</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="topic">Wirtschaft</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Ben Bernanke</tag>
+  <tag type="person">Ben Bernake</tag>
+  <tag type="person">Thema  Krisentreffen</tag>
+  <tag type="title">G7 und Banken ringen um Regulierungskonzept | tagesschau.de</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Washington</tag>
+  <tag type="location">US</tag>
+  <tag type="location">USA</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="40. Jahrestag des Attentats auf Rudi Dutschke" url="http://www.rbb-online.de/_/nachrichten/politik/beitrag_jsp/key=news7300969.html">
+  <tag type="topic">Thema</tag>
+  <tag type="topic">Erinnerung</tag>
+  <tag type="topic">Nachricht</tag>
+  <tag type="topic">Info</tag>
+  <tag type="topic">nullItem</tag>
+  <tag type="topic">Kurfürstendamm</tag>
+  <tag type="topic">www</tag>
+  <tag type="topic">Jahr</tag>
+  <tag type="topic">Attentat</tag>
+  <tag type="topic">Rundfunk</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Rudi Dutschke</tag>
+  <tag type="person">Gretchen Klotz-</tag>
+  <tag type="person">Hans-Christian Ströbele</tag>
+  <tag type="title">Rundfunk Berlin-Brandenburg | Nachrichten - Erinnerung an Rudi Dutschke</tag>
+  <tag type="location">Rathaus</tag>
+  <tag type="location">Brandenburg</tag>
+  <tag type="location">Amerikahaus</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Schöneberg</tag>
+  <tag type="location">Berliner</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Statistik: 17.607 rechtsextreme - 5866 linksextreme Straftaten" url="http://www.tagesschau.de/inland/politischestraftaten2.html">
+  <tag type="topic">Zahl</tag>
+  <tag type="topic">Inland</tag>
+  <tag type="topic">Straftat</tag>
+  <tag type="topic">Jahr</tag>
+  <tag type="topic">Prozent</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Gipfel</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="title">Statistik: 17.607 rechtsextreme - 5866 linksextreme Straftaten  | tagesschau.de</tag>
+  <tag type="location">Asien</tag>
+  <tag type="location">Deutschland</tag>
+  <tag type="location">Hamburg</tag>
+  <tag type="location">Rostock</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Dresden</tag>
+  <tag type="location">Europa</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="bundestag.de: Erster Live-Chat mit Abgeordneten" url="http://www.tagesschau.de/inland/bundestagschat2.html">
+  <tag type="topic">Jugendliche</tag>
+  <tag type="topic">Inland</tag>
+  <tag type="topic">Sendung</tag>
+  <tag type="topic">Chat</tag>
+  <tag type="topic">Bundestag</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Chats</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Rohde von</tag>
+  <tag type="person">Von Nikolas</tag>
+  <tag type="person">Thema Ausbildungsförderung</tag>
+  <tag type="person">Katja Mast</tag>
+  <tag type="person">Nathalie Hillmanns-</tag>
+  <tag type="title">bundestag.de: Erster Live-Chat mit Abgeordneten | tagesschau.de</tag>
+  <tag type="location">Höhe</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Ausbildungsplatz</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Nach der Krise: Unicef wählt neuen Vorsitzenden" url="http://www.tagesschau.de/inland/unicef126.html">
+  <tag type="topic">Krise</tag>
+  <tag type="topic">Inland</tag>
+  <tag type="topic">Unicef</tag>
+  <tag type="topic">Hinweis</tag>
+  <tag type="topic">Vorsitzende</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="topic">Uhr</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Ann Kathrin Linsenhoff</tag>
+  <tag type="person">Miriam Gruß</tag>
+  <tag type="person">Dieter Kastrup</tag>
+  <tag type="person">Anna Kyrieleis</tag>
+  <tag type="title">Nach der Krise: Unicef w?hlt neuen Vorsitzenden | tagesschau.de</tag>
+  <tag type="location">Deutschland</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Heide</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Bush stoppt Truppenrückzug aus Irak" url="http://www.tagesschau.de/ausland/petraeus18.html">
+  <tag type="topic">Petraeus</tag>
+  <tag type="topic">Sendung</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Rede</tag>
+  <tag type="topic">Bush</tag>
+  <tag type="topic">Ausland</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">Uhr</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">John Kornblum</tag>
+  <tag type="person">Frank Aischmann</tag>
+  <tag type="person">F. Aischmann</tag>
+  <tag type="person">Olympia-Eröffnung</tag>
+  <tag type="title">Bush stoppt Truppenr?ckzug aus Irak | tagesschau.de</tag>
+  <tag type="location">Simbabwe</tag>
+  <tag type="location">Tibet</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Irak</tag>
+  <tag type="location">Washington</tag>
+  <tag type="location">US</tag>
+  <tag type="location">USA</tag>
+  <tag type="location">Italien</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Prozessauftakt gegen mutmaßliche LLB-Erpresser" url="http://www1.ndr.de/nachrichten/mecklenburg-vorpommern/liechtenstein20.html">
+  <tag type="topic">Seitenanfang</tag>
+  <tag type="topic">Euro</tag>
+  <tag type="topic">Prozeß</tag>
+  <tag type="topic">Million</tag>
+  <tag type="topic">Radio</tag>
+  <tag type="topic">Staatsanwaltschaft</tag>
+  <tag type="topic">Angeklagte</tag>
+  <tag type="topic">Bank</tag>
+  <tag type="topic">Fernsehen</tag>
+  <tag type="topic">NDR</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="author">NDR</tag>
+  <tag type="person">Klaus Zumwinkel</tag>
+  <tag type="person">Den Angeklagten</tag>
+  <tag type="title">NDR Online - Nachrichten - Mecklenburg-Vorpommern- Prozess um gestohlene Kontodaten l?uft</tag>
+  <tag type="location">Mecklenburg-Vorpommern</tag>
+  <tag type="location">Schleswig-Holstein</tag>
+  <tag type="location">Hamburg</tag>
+  <tag type="location">Höhe</tag>
+  <tag type="location">Niedersachsen</tag>
+  <tag type="location">Rostock</tag>
+  <tag type="location">Liechtenstein</tag>
+  <tag type="location">Bochum</tag>
+  <tag type="location">Thailand</tag>
+  <tag type="location">Hamburger</tag>
+  <tag type="location">Rostocker</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="ABN Amro vergibt keine Wohnbaukredite mehr" url="http://boerse.ard.de/content.jsp?key=dokument_286602">
+  <tag type="topic">Thema</tag>
+  <tag type="topic">ABN</tag>
+  <tag type="topic">boerse</tag>
+  <tag type="topic">AAHG</tag>
+  <tag type="topic">Amro</tag>
+  <tag type="topic">Tag</tag>
+  <tag type="topic">Kredit</tag>
+  <tag type="topic">Suche</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="topic">Hypothek</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Karsten Leckebusch</tag>
+  <tag type="person">Bella Italia</tag>
+  <tag type="person">Burghard Schnödewind</tag>
+  <tag type="person">Robert Haselsteiner</tag>
+  <tag type="person">Andreas Braun</tag>
+  <tag type="title">boerse.ARD.de : Keine Hypotheken mehr von ABN Amro</tag>
+  <tag type="location">Deutschland</tag>
+  <tag type="location">Niederlanden</tag>
+  <tag type="location">US</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Diskussion um Internetangebote von ARD und ZDF" url="http://www3.ndr.de/ndrtv_pages_std/0,3147,OID4695492_REF2488,00.html">
+  <tag type="topic">Internet</tag>
+  <tag type="topic">Papier</tag>
+  <tag type="topic">Arbeitsentwurf</tag>
+  <tag type="topic">Angebot</tag>
+  <tag type="topic">ZDF</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">Streit</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="topic">Verleger</tag>
+  <tag type="topic">Rundfunk</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="author">Norddeutscher Rundfunk, Hamburg, Germany</tag>
+  <tag type="person">Dieter Dörr</tag>
+  <tag type="person">Gernot Lehr</tag>
+  <tag type="person">Hans-Jürgen</tag>
+  <tag type="person">Richard Rebmann</tag>
+  <tag type="title">NDR Fernsehen - Umstritten - Politiker wollen Onlineangebot von ARD und ZDF beschr?nken</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Uefa-Cup: Glückliche Bayern kämpfen sich weiter" url="http://sport.ard.de/sp/fussball/news200804/10/getafe_bayern_spielbericht.jsp">
+  <tag type="topic">Franck</tag>
+  <tag type="topic">Sport</tag>
+  <tag type="topic">Spiel</tag>
+  <tag type="topic">Minute</tag>
+  <tag type="topic">Toni</tag>
+  <tag type="topic">Getafe</tag>
+  <tag type="topic">Ergebnis</tag>
+  <tag type="topic">Tor</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="topic">Luca</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Alfonso Perez</tag>
+  <tag type="person">Thema  
+          
+           Live-</tag>
+  <tag type="title">Luca Toni rettet Bayern - UEFA-Cup - Fu?ball - sport.ARD.de</tag>
+  <tag type="location">München</tag>
+  <tag type="location">Leverkusen</tag>
+  <tag type="location">St. Petersburg</tag>
+  <tag type="location">Petersburg</tag>
+  <tag type="location">Bayern</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Funktionäre sagen Millionen Freizeitkickern den Kampf an" url="http://www.tagesschau.de/inland/hartplatzhelden2.html">
+  <tag type="topic">Inland</tag>
+  <tag type="topic">Sendung</tag>
+  <tag type="topic">Funktionär</tag>
+  <tag type="topic">Hinweis</tag>
+  <tag type="topic">Hartplatzhelden</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">Uhr</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="person">Jenni Rieger</tag>
+  <tag type="title">Funktion?re sagen Millionen Freizeitkickern den Kampf an | tagesschau.de</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Ascheplatz</tag>
+  <tag type="language">german</tag>
+</article>
+<article title="Jetzt wird Europa demokratisch!" url="http://www.tagesschau.de/schlusslicht/sark2.html">
+  <tag type="topic">Dezember</tag>
+  <tag type="topic">Sark</tag>
+  <tag type="topic">Schlußlichte</tag>
+  <tag type="topic">Parlament</tag>
+  <tag type="topic">Sendung</tag>
+  <tag type="topic">Weitere</tag>
+  <tag type="topic">Insel</tag>
+  <tag type="topic">Inhalt</tag>
+  <tag type="topic">Tagesschau</tag>
+  <tag type="topic">ARD</tag>
+  <tag type="content-type">text/html</tag>
+  <tag type="title">Jetzt wird Europa demokratisch! | tagesschau.de</tag>
+  <tag type="location">Großbritannien</tag>
+  <tag type="location">EU-Gerichtshof</tag>
+  <tag type="location">Berlin</tag>
+  <tag type="location">Europa</tag>
+  <tag type="language">german</tag>
+</article>
+}}}
