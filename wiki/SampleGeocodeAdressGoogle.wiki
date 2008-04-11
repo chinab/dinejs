@@ -49,3 +49,11 @@ createStep({
 	
 });
 }}}
+
+= Sample Output =
+
+{{{
+Retrieving coordinates for Kiehlufer 43,12059,Berlin,DE
+Successfully geocoded address for: Kiehlufer 43,12059,Berlin,DE
+Latitude: 52.485832, Longitude: 13.443323
+}}}
