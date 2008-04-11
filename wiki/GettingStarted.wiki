@@ -1,4 +1,10 @@
 #summary 2 minute introduction
-#labels Featured
+#labels Featured,Phase-Implementation
 
-*dine* is currently undergoing a complete rewrite, I'll have the intro available as soon as this is done. Sorry!
+ * Make sure you have Java 5 or greater installed, if you don't [http://java.sun.com/javase/downloads/index.jsp download it here].
+
+
+ * grab the [http://dinejs.googlecode.com/files/dine-0.2-beta-all.jar latest jar] from dine's project page 
+ 
+ * create 2 folders, one will contain the !JavaScript code dine will execute, all output will be written to the other folder
+ 
