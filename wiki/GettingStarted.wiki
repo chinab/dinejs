@@ -73,8 +73,7 @@ _java -jar dine-0.2-beta-all.jar 1 /tmp/dine/js/ /tmp/dine/output/ /googleTitle_
 
 The output should look similar to this:
 
-{{{
-18:40:37,451 INFO  [Builder] generating step [/googleTitle]
-The title of google.com is Google, what a surprise!
-18:40:38,074 INFO  [MultithreadedStepExecutor] done
-}}}
+_The title of google.com is Google, what a surprise!_
+
+
+=== Understanding the code ===
