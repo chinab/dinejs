@@ -1,10 +1,46 @@
 #summary 2 minute introduction
 #labels Featured,Phase-Implementation
 
- * Make sure you have Java 5 or greater installed, if you don't [http://java.sun.com/javase/downloads/index.jsp download it here].
+=== Requirements ===
 
+ * Make sure you have Java 5 or greater installed, if you don't have that, [http://java.sun.com/javase/downloads/index.jsp download it here].
 
- * grab the [http://dinejs.googlecode.com/files/dine-0.2-beta-all.jar latest jar] from dine's project page 
+ * grab the [http://dinejs.googlecode.com/files/dine-0.2-beta-all.jar latest release] from dine's project page 
+ 
+
+=== Directory Structure ===
  
  * create 2 folders, one will contain the !JavaScript code dine will execute, all output will be written to the other folder
- 
+
+ * for this guide, let's assume your directory structure looks like this:
+
+  /tmp/dine/
+
+  /tmp/dine/dine-0.2-beta-all.jar
+
+  /tmp/dine/js/
+
+  /tmp/dine/output/
+
+=== Executing dine ===
+
+   * now go to _/tmp/dine_ and type _java -jar dine-0.2-beta-all.jar_ to see what parameters dine expects:
+
+{{{
+Usage: java -jar dinejs-all.jar <maxConcurrentThreads> <StepsBaseDirectory> <DownloadBaseDirectory> <seedStep>
+}}}
+
+ _maxConcurrentThreads_ is the maximum number of HTTP requests dine will execute concurrently
+
+ _!StepsBaseDirectory _ is the directory containing the !JavaScript code dine will execute (_/tmp/dine/js_ in this example)
+
+ _!DownloadBaseDir _ is the directory where the output is written to (_/tmp/dine/output_ in this example )
+
+ _seedStep_ is the name of the first !JavaScript Step dine will execute
+
+
+=== Write your first Step ===
+
+Time to write our first Step! A Step is basically a piece of !JavaScript code that tells dine what content to fetch from the internet, which dine will do for you and then the Step can extract whatever information it wants.
+
+Instead of the classical "Hello World", we'll write a step that echoes the page title of google.com
