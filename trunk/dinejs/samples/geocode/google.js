@@ -1,7 +1,7 @@
 createStep({
 
 	getGoogleKey: function() {
-		return "ABQIAAAANelthjk4CgqkadrupPlamRSlTgugxDuQ-CJDMAyi6NoU3BK23hTgT8kdfXBI2kpzMkWdhx9SWYPvvg";
+		return "PASTE YOUR GOOGLE API KEY HERE";
 	},
 
 	getUrl: function( ctx ) {
