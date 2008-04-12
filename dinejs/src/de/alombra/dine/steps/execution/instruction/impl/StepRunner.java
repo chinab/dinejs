@@ -7,15 +7,27 @@ import de.alombra.dine.steps.execution.content.ContentFormatterFactory;
 import de.alombra.dine.steps.execution.instruction.InstructionRunner;
 import de.alombra.dine.util.ReportingUtil;
 
+/**
+ * This class coordinates the execution of steps.
+ * 
+ * It triggers the HTTP request and prepares the fetched information for the step.
+ * 
+ * @author ssc
+ */
 public class StepRunner extends AbstractInstructionRunner<StepInstruction> {
 
+  /**
+   * the instruction to run
+   */
 	private StepInstruction instruction;
 
 	private HttpResult executeHttpRequest( Step step, StepContext ctx ) throws Exception {
 	  
+	  // trigger execution of a HTTP GET request
     if ( Step.HTTP_METHOD_GET.equalsIgnoreCase( step.getMethod() ) )
       return getStepExecutor().getHttpManager().executeGet( step.getUrl( ctx ) );
 
+    // trigger execution of a HTTP POST request
     if ( Step.HTTP_METHOD_POST.equalsIgnoreCase( step.getMethod() ) )
       return getStepExecutor().getHttpManager().executePost( step.getUrl( ctx ), step.getPostParams() );
 	  

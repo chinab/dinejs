@@ -4,9 +4,15 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.alombra.dine.steps.build.Builder;
+import de.alombra.dine.steps.build.RhinoBuilder;
 import de.alombra.dine.steps.resolve.Resolver;
 
+/**
+ * This class triggers the instantiation of the steps using a StepBuilder 
+ * and will then hold a singleton instance of each step  
+ * 
+ * @author ssc
+ */
 public class StepHolder {
 
 	private Map<String, Step> stepInstances = new HashMap<String, Step>();
@@ -29,7 +35,7 @@ public class StepHolder {
 	
   private void instantiate( Reader reader, String name ) {
     
-    Step stepInstance = new Builder().createStep( reader, name ).getStep();
+    Step stepInstance = new RhinoBuilder().createStep( reader, name ).getStep();
     
     stepInstances.put( name, stepInstance );    
   }	
