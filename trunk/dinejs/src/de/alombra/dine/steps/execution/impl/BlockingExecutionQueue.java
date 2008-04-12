@@ -9,6 +9,12 @@ import org.apache.commons.logging.LogFactory;
 import de.alombra.dine.steps.execution.ExecutionQueue;
 import de.alombra.dine.steps.execution.instruction.Instruction;
 
+/**
+ * Implementation of {@link ExecutionQueue} using a LinkedBlockingQueue,
+ * we need concurrency control as steps will concurrently insert new instructions
+ * 
+ * @author ssc
+ */
 public class BlockingExecutionQueue implements ExecutionQueue {
 
 	private BlockingQueue<Instruction> instructionQueue = new LinkedBlockingQueue<Instruction>();
@@ -26,6 +32,7 @@ public class BlockingExecutionQueue implements ExecutionQueue {
 
 	public Instruction getNextInstruction() { 
 
+	  // maybe we could use blocking read here, so that the executor doesn't have to sleep...
 	  Instruction nextInstruction = instructionQueue.poll();
 	  
 	  if ( null != nextInstruction )
