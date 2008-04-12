@@ -22,14 +22,14 @@ public class StepHolder {
 	public Step get( String name ) {
 	  
 	  if ( !stepInstances.containsKey( name ) )
-	    throw new RuntimeException("Unknown step "+name+" requested!" );
+	    throw new RuntimeException( "Unknown step "+name+" requested!" );
 	  
 		return stepInstances.get( name );
 	}
 	
   private void instantiate( Reader reader, String name ) {
     
-    Step stepInstance = new Builder().createStep(reader, name).getStep();
+    Step stepInstance = new Builder().createStep( reader, name ).getStep();
     
     stepInstances.put( name, stepInstance );    
   }	
