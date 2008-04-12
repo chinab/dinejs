@@ -20,6 +20,7 @@ public class StepContext {
 
 	private String response;
 	private String responseContentType;
+	private int responseCode;
 	
 	private HttpState httpState;
 	
@@ -124,4 +125,16 @@ public class StepContext {
   public void setHttpState( HttpState httpState ) {
     this.httpState = httpState;
   }
+
+  
+  public int getResponseCode() {
+    return responseCode;
+  }
+
+  
+  public void setResponseCode( int responseCode ) {
+    this.responseCode = responseCode;
+  }
+  
+  
 }

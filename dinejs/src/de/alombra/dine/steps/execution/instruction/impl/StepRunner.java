@@ -47,9 +47,8 @@ public class StepRunner extends AbstractInstructionRunner<StepInstruction> {
 			// execute the real HTTP request either per GET or per POST
 			httpResult = executeHttpRequest( step, stepContext );
 			
-			//System.out.println( step.getMethod() );
-			
-			//this.step.setHttpResponse( method.getStatusCode() );
+			// the http response code
+			stepContext.setResponseCode( httpResult.getHttpMethod().getStatusCode() );
 			
 			// format the result 
 			stepContext.setResponse( extractResponse( httpResult ) );
