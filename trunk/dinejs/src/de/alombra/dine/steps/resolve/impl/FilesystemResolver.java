@@ -9,9 +9,16 @@ import java.util.Map;
 import de.alombra.dine.steps.resolve.Resolver;
 import de.alombra.dine.util.IOUtil;
 
-
+/**
+ * locate steps located in the filesystem
+ * 
+ * @author ssc
+ */
 public class FilesystemResolver implements Resolver {
 
+  /**
+   * the root dir under which all steps are located 
+   */
   private String baseDir;
   
   public FilesystemResolver( String baseDir ) {
@@ -25,8 +32,12 @@ public class FilesystemResolver implements Resolver {
   
     try {
       
+      // recursively locate all .js files under the base directory
       for ( File jsFile : IOUtil.scanDirectory( dir ) ) {
       
+        // cut off the .js ending, cut off the path to the basedir
+        // so that only the path to the file under the basedir is 
+        // left as name for the step
         String name = jsFile.getCanonicalPath()
                             .replaceAll( dir.getCanonicalPath(), "" )
                             .replaceAll(".js", "");
@@ -34,8 +45,10 @@ public class FilesystemResolver implements Resolver {
         resolvedSteps.put( name, new FileReader( jsFile ) );
       }
   
-      if ( resolvedSteps.size() == 0 )
+      // at least one step must be found
+      if ( resolvedSteps.size() == 0 ) {
         throw new RuntimeException("No steps resolved!");
+      }
       
       return resolvedSteps;
     }
