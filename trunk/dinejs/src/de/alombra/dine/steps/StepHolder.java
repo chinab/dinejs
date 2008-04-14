@@ -15,8 +15,16 @@ import de.alombra.dine.steps.resolve.Resolver;
  */
 public class StepHolder {
 
+  /**
+   * the instances indexed by name
+   */
 	private Map<String, Step> stepInstances = new HashMap<String, Step>();
 		
+	/**
+	 * create singleton instances
+	 * 
+	 * @param resolver
+	 */
 	public void instantiate( Resolver resolver ) {
 	  
 	  Map<String, Reader> resolvedSteps = resolver.resolveStepCode(); 
@@ -25,6 +33,12 @@ public class StepHolder {
 	    instantiate( resolvedSteps.get( name ), name );
 	}
 	
+	/**
+	 * get a singleton step instance
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public Step get( String name ) {
 	  
 	  if ( !stepInstances.containsKey( name ) )

@@ -5,6 +5,12 @@ import org.apache.commons.httpclient.HttpMethod;
 import de.alombra.dine.steps.execution.content.Content;
 import de.alombra.dine.util.IOUtil;
 
+/**
+ * used for content type text/xml, returns the XML String and cuts off
+ * the XML declaration because of an E4X bug
+ * 
+ * @author ssc
+ */
 public class XmlContentFormatter extends AbstractContentFormatter {
 
   @Override
@@ -20,6 +26,10 @@ public class XmlContentFormatter extends AbstractContentFormatter {
                   xmlContent,
                   ContentTypeHelper.getEncodingFromXML( xml )
                 );    
+  }
+
+  public boolean isApplicable( String contentType ) {
+    return contentType.contains("xml"); 
   }
 
 
