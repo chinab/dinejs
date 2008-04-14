@@ -1,8 +1,8 @@
 createStep({
 	getUrl: function( ctx ) {
 	
-		var firstname = "Frank";
-		var lastname =  "Biedka";
+		var firstname = "Lucas";
+		var lastname =  "Schelter";
 	
 		return "https://www.xing.com/profile/"
 					+ctx.encode( firstname )

@@ -5,6 +5,12 @@ import org.htmlcleaner.HtmlCleaner;
 
 import de.alombra.dine.steps.execution.content.Content;
 
+/**
+ * used for content type text/html, this creates an XML String from
+ * the HTML source 
+ * 
+ * @author ssc
+ */
 public class HtmlContentFormatter extends AbstractContentFormatter {
 
   @Override
@@ -22,6 +28,10 @@ public class HtmlContentFormatter extends AbstractContentFormatter {
                   cleaner.getXmlAsString(),
                   ContentTypeHelper.getEncodingFromHttpHeader( contentType )
                  );
+  }
+
+  public boolean isApplicable( String contentType ) {
+    return contentType.contains("html");
   }
 
 }
