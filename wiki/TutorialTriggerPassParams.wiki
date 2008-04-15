@@ -10,7 +10,7 @@ The first one will have to trigger the execution of the second one and it needs 
 
 = Code =
 
-_allLinks.js_
+== Finding all links: _allLinks.js_ ==
 {{{
 createStep({
 	getUrl: function( ctx ) {
@@ -37,7 +37,16 @@ createStep({
 });
 }}}
 
-_checkUrl.js_
+This step finds all links on my FAQ page and checks whether they are outgoing links ( all outgoing links start with _http_). 
+
+Then it triggers the execution of the next step and gives the link as a param to it in this line:
+
+_ctx.addStep("/checkUrl", createMap({ url: link }) );_ 
+
+That code means the following: execute the step defined in _/checkUrl.js_ and save the content of the variable _link_  as a param for it under the name _url_.
+
+
+== Checking a link: _checkUrl.js_ ==
 
 {{{
 createStep({
@@ -57,6 +66,8 @@ createStep({
 	}
 });
 }}}
+
+You can see that this step uses the parameter _url_ given to it by it's parent step _/allLinks_. It will be executed for each outgoing link that is found by _/allLinks_. 
 
 = Output =
 
