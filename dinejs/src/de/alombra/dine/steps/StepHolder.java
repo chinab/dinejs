@@ -4,8 +4,8 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.alombra.dine.runtime.callback.ResolverCallback;
 import de.alombra.dine.steps.build.RhinoBuilder;
-import de.alombra.dine.steps.resolve.Resolver;
 
 /**
  * This class triggers the instantiation of the steps using a StepBuilder 
@@ -25,9 +25,9 @@ public class StepHolder {
 	 * 
 	 * @param resolver
 	 */
-	public void instantiate( Resolver resolver ) {
-	  
-	  Map<String, Reader> resolvedSteps = resolver.resolveStepCode(); 
+	public void instantiate( ResolverCallback resolverCallback ) {
+	  	  
+	  Map<String, Reader> resolvedSteps = resolverCallback.resolveStepCode(); 
 	  
 	  for ( String name : resolvedSteps.keySet() )
 	    instantiate( resolvedSteps.get( name ), name );

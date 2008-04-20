@@ -13,34 +13,14 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import de.alombra.dine.run.RuntimeConfig;
-
 
 public class IOUtil {
 
   public static final Log logger = LogFactory.getLog( IOUtil.class );
-  
-  public static void createFolder( String folderName ) {
     
-    String path = RuntimeConfig.getInstance().getDownloadBaseDir()+"/"+folderName;
-    
-    File file = new File( path );
-    
-    if ( file.exists() && file.isDirectory() && file.canWrite() )
-      return;
-    
-    if ( logger.isInfoEnabled() )
-      logger.info( "Creating folder: "+path );
-    
-    file.mkdir();    
-  }
-  
 	public static void writeToFile( InputStream inputStream, String fileName ) {
-		
-	  String path = RuntimeConfig.getInstance().getDownloadBaseDir()+"/"+fileName;
 
-
-    File file = new File( path );
+    File file = new File( fileName );
     FileOutputStream fileOutputStream = null;
     Writer out = null;
 
@@ -67,7 +47,7 @@ public class IOUtil {
       try {
         out.close();
       } catch (IOException e) {
-        throw new RuntimeException("Unable to close file output stream", e);
+        throw new RuntimeException( "Unable to close file output stream", e );
       }
     }
   }	  
