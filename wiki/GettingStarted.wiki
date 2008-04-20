@@ -5,7 +5,7 @@
 
 Make sure you have Java 5 or greater installed, if you don't have that, [http://java.sun.com/javase/downloads/index.jsp download it here].
 
-Grab the [http://dinejs.googlecode.com/files/dine-0.2-beta-all.jar latest release] from dine's project page 
+Grab the [http://code.google.com/p/dinejs/downloads/list latest release] from dine's project page 
  
 
 === Directory Structure ===
@@ -16,7 +16,7 @@ For this guide, let's assume your directory structure looks like this:
 
   /tmp/dine/
 
-  /tmp/dine/dine-0.2-beta-all.jar
+  /tmp/dine/dine-0.3-beta-cli.jar
 
   /tmp/dine/js/
 
@@ -24,7 +24,7 @@ For this guide, let's assume your directory structure looks like this:
 
 === Executing dine ===
 
-Now go to _/tmp/dine_, open a shell and type _java -jar dine-0.2-beta-all.jar_ to see what parameters dine expects:
+Now go to _/tmp/dine_, open a shell and type _java -jar dine-0.3-beta-cli.jar_ to see what parameters dine expects:
 
 {{{
 Usage: java -jar dinejs-all.jar <maxConcurrentThreads> <StepsBaseDirectory> <DownloadBaseDirectory> <seedStep>
@@ -69,7 +69,7 @@ createStep({
 
 TIme to execute it! Open a shell and type:
 
-_java -jar dine-0.2-beta-all.jar 1 /tmp/dine/js/ /tmp/dine/output/ /googleTitle_
+_java -jar dine-0.3-beta-cli.jar 1 /tmp/dine/js/ /tmp/dine/output/ /googleTitle_
 
 The output should look similar to this:
 
