@@ -1,7 +1,10 @@
+de.alombra.dine.clients.cli
+de.alombra.dine.clients.cli.callback
 de.alombra.dine.http
 de.alombra.dine.http.cookie
 de.alombra.dine.http.impl
-de.alombra.dine.run
+de.alombra.dine.runtime
+de.alombra.dine.runtime.callback
 de.alombra.dine.steps
 de.alombra.dine.steps.build
 de.alombra.dine.steps.execution
@@ -10,6 +13,4 @@ de.alombra.dine.steps.execution.content.impl
 de.alombra.dine.steps.execution.impl
 de.alombra.dine.steps.execution.instruction
 de.alombra.dine.steps.execution.instruction.impl
-de.alombra.dine.steps.resolve
-de.alombra.dine.steps.resolve.impl
 de.alombra.dine.util
