@@ -19,22 +19,48 @@ createStep({
 			
 			if ( this.isInternalLink( next ) == true ) {
 			
+				if ( !next.match(/^\//) ) {
+					next = "/"+next;
+				}
+				
 				next = this.getRootUrl()+next;
 								
 				if ( ctx.getMemory().hasKey( next ) == false ) {
 				
-					print( "adding: "+next );
+					//print( "visiting: "+next );
 					
 					ctx.getMemory().put( next, "" );
 					ctx.addStep("/visitEveryPage", createMap( { "url": next } ) );
 				}
 
 			}
+			
+			if ( next.match(/^mailto:/) ) {
+			
+				// some normalization...
+				var email = next.substring( next.indexOf(":")+1, next.length );
+				email = email.replace( " at ", "@");
+				email = email.replace( / /g, "" );
+				email = email.replace( "[at]", "@" );
+				email = email.replace( "(at)", "@" );
+				
+				// the corresponding url:
+				var url;
+				
+				if ( ctx.hasParam("url") == false ) {
+					url = this.getRootUrl();
+				}
+				else {
+					url = ctx.getParam("url");
+				}
+				
+				print( email+"    ["+url+"]" );
+			}
 		}
 	},
 	
 	getRootUrl: function() {
-		return "http://newsride.org";
+		return "http://www.phpcenter.de";
 	},
 	
 	isInternalLink: function( link ) {

@@ -18,7 +18,7 @@ public class FilesystemDownloadCallback implements DownloadCallback {
 
   public void processDownload( InputStream inputStream, String filename ) {
 
-    IOUtil.writeToFile( inputStream, this.baseDir+"/"+filename );
+    IOUtil.writeBinaryFile( inputStream, this.baseDir+"/"+filename );
   }
 
   public void writeFile( String content, String filename ) {

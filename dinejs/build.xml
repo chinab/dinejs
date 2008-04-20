@@ -27,7 +27,7 @@
 	<target name="initialSetupForEclipse" depends="generate-eclipse-classpath" description="setup the project in eclipse">
 	</target>
 	
-	<target name="generateJavaDoc">
+	<target name="generateJavaDoc" description="generate javadoc">
 		<mkdir dir="${resources.dir}/javadoc"/>
 		
 		 <javadoc packagenames="de.alombra.dine.*"
