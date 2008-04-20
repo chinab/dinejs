@@ -7,6 +7,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import de.alombra.dine.http.HttpManager;
+import de.alombra.dine.runtime.RuntimeConfig;
+import de.alombra.dine.runtime.callback.DownloadCallback;
 import de.alombra.dine.steps.StepHolder;
 import de.alombra.dine.steps.StepMemory;
 import de.alombra.dine.steps.execution.ExecutionQueue;
@@ -28,18 +30,23 @@ public class MultithreadedStepExecutor implements StepExecutor {
   private HttpManager httpManager;
   private StepMemory stepMemory;
   
+  private RuntimeConfig runtimeConfig;
+  
   private static final Log logger = LogFactory.getLog( MultithreadedStepExecutor.class );
     
-	public MultithreadedStepExecutor( int threadPoolSize, ExecutionQueue executionQueue, StepHolder stepHolder, HttpManager httpManager ) {
+	public MultithreadedStepExecutor( RuntimeConfig runtimeConfig, ExecutionQueue executionQueue, StepHolder stepHolder, HttpManager httpManager ) {
     super();
+    this.runtimeConfig = runtimeConfig;
+    
     this.executionQueue   = executionQueue;
-    this.executorService  = Executors.newFixedThreadPool( threadPoolSize );
+    this.executorService  = Executors.newFixedThreadPool( runtimeConfig.getMaxConcurrentThreads() );
     this.stepHolder       = stepHolder;
     
     this.httpManager      = httpManager;
     this.stepMemory       = new StepMemory();
   }
 
+	
   public void notifyOfTermination() {
 	  threadCount--;
 	}
@@ -78,12 +85,12 @@ public class MultithreadedStepExecutor implements StepExecutor {
 		       
 		    logger.info("done");
 		        
-		    this.executorService.shutdownNow();
+		    this.executorService.shutdown();
 		    break;
 	    }
 	      
 	      try {
-	        Thread.sleep( 10 );
+	        Thread.sleep( runtimeConfig.getQueueCheckInterval() );
 	      } 
 	      catch ( InterruptedException e ) {
 	        e.printStackTrace();
@@ -106,4 +113,11 @@ public class MultithreadedStepExecutor implements StepExecutor {
   public StepMemory getStepMemory() {
     return stepMemory;
   }
+
+
+  public DownloadCallback getDownloadCallback() {
+    return runtimeConfig.getDownloadCallback();
+  }
+  
+  
 }

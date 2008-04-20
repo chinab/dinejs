@@ -1,7 +1,7 @@
 
 <project name="dine" default="dist-onejar" xmlns:ivy="antlib:org.apache.ivy.ant">
 
-	<property name="version" value="0.2-beta"/>
+	<property name="version" value="0.3-beta"/>
 
 	<property name="resources.dir" value="resources"/>
 	<property name="lib.dir" value="${resources.dir}/lib"/>    
@@ -88,7 +88,7 @@
 		</copy>
 
   		<jar 
-  			destfile="${dist.dir}/dine-${version}-all.jar"
+  			destfile="${dist.dir}/dine-${version}-cli.jar"
   	    basedir="${build.onejar.dir}"
   		>
 	    <manifest>
@@ -96,7 +96,7 @@
 	    	<attribute name="Implementation-Title" value="dine"/> 
 	    	<attribute name="Implementation-Version" value="${version}"/> 
     		<attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
-    		<attribute name="One-Jar-Main-Class" value="de.alombra.dine.run.Runner"/>
+    		<attribute name="One-Jar-Main-Class" value="de.alombra.dine.clients.cli.Runner"/>
 	    </manifest>  		
   		<metainf file="${resources.dir}/LICENSE.txt"/>
  		</jar>		

@@ -1,4 +1,4 @@
-package de.alombra.dine.steps.resolve.impl;
+package de.alombra.dine.clients.cli.callback;
 
 import java.io.File;
 import java.io.FileReader;
@@ -6,22 +6,18 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.alombra.dine.steps.resolve.Resolver;
+import de.alombra.dine.runtime.callback.ResolverCallback;
 import de.alombra.dine.util.IOUtil;
 
-/**
- * locate steps located in the filesystem
- * 
- * @author ssc
- */
-public class FilesystemResolver implements Resolver {
+
+public class FilesystemResolverCallback implements ResolverCallback {
 
   /**
    * the root dir under which all steps are located 
    */
   private String baseDir;
   
-  public FilesystemResolver( String baseDir ) {
+  public FilesystemResolverCallback( String baseDir ) {
     this.baseDir = baseDir;
   }
   

@@ -59,7 +59,7 @@ public class StepRunner extends AbstractInstructionRunner<StepInstruction> {
 			
 			// execute the real HTTP request either per GET or per POST
 			httpResult = executeHttpRequest( step, stepContext );
-			
+
 			// the http response code
 			stepContext.setResponseCode( httpResult.getHttpMethod().getStatusCode() );
 			

@@ -9,6 +9,7 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 
 import de.alombra.dine.http.HttpManager;
@@ -24,18 +25,21 @@ public class HttpManagerImpl implements HttpManager {
     CookiePolicy.registerCookieSpec( AcceptAllCookieSpec.SPEC_IDENTIFIER, AcceptAllCookieSpec.class ); 
   }
   
-  public HttpManagerImpl( int maxConnections ) {
+  public HttpManagerImpl( int maxConcurrentThreads, boolean allowCircularRedirects ) {
     super();
     
     MultiThreadedHttpConnectionManager connectionManager = new MultiThreadedHttpConnectionManager(); 
     
     HttpConnectionManagerParams connectionManagerParams = new HttpConnectionManagerParams();
     
-    connectionManagerParams.setMaxTotalConnections( maxConnections );
+    connectionManagerParams.setMaxTotalConnections( maxConcurrentThreads );
     
     connectionManager.setParams( connectionManagerParams );
     
-    httpClient = new HttpClient( connectionManager );    
+    httpClient = new HttpClient( connectionManager );
+
+    httpClient.getParams().setBooleanParameter( HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, allowCircularRedirects );
+    
     httpClient.getParams().setCookiePolicy( AcceptAllCookieSpec.SPEC_IDENTIFIER );        
   }
   

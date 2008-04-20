@@ -1,6 +1,5 @@
 package de.alombra.dine.steps;
 
-import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -12,7 +11,6 @@ import de.alombra.dine.steps.execution.instruction.Instruction;
 import de.alombra.dine.steps.execution.instruction.InstructionRunner;
 import de.alombra.dine.steps.execution.instruction.impl.DownloadInstruction;
 import de.alombra.dine.steps.execution.instruction.impl.StepInstruction;
-import de.alombra.dine.util.IOUtil;
 
 public class StepContext {
 
@@ -62,12 +60,8 @@ public class StepContext {
 		doAddInstruction( instruction );
 	}
 	
-	public void createFolder( String path ) {
-	  IOUtil.createFolder( path );
-	}
-	
 	public void writeToFile( String content, String fileName ) {
-	  IOUtil.writeToFile( new ByteArrayInputStream( content.getBytes() ), fileName );
+	  runner.getStepExecutor().getDownloadCallback().writeFile( content, fileName );
 	}
 	
 	@SuppressWarnings("unchecked")
