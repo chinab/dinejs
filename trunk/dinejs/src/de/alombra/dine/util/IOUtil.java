@@ -1,5 +1,7 @@
 package de.alombra.dine.util;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -51,6 +53,35 @@ public class IOUtil {
       }
     }
   }	  
+	
+  public static void writeBinaryFile( InputStream inputStream, String fileName ) {
+
+    final int bufferSize = 1000;
+    
+    try {
+
+      BufferedInputStream in = new BufferedInputStream( inputStream );
+      BufferedOutputStream out = new BufferedOutputStream( new FileOutputStream( new File( fileName ) ) );
+    
+      byte[] buffer = new byte[ bufferSize ];
+    
+      int readCount = 0;
+    
+      while ( (readCount = in.read(buffer)) != -1 ) { 
+        
+        if ( readCount < bufferSize ) {
+          out.write(buffer, 0, readCount);
+        } 
+        else {
+          out.write( buffer );
+        }
+      }    
+    } 
+    catch( Exception e ) {    
+      throw new RuntimeException( "Unable to write file "+fileName, e );
+    }
+
+  }   	
 	
 	public static List<File> scanDirectory( File baseDir ) {
 		

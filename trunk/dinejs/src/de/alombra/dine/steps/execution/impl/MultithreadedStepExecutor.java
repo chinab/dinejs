@@ -86,6 +86,9 @@ public class MultithreadedStepExecutor implements StepExecutor {
 		    logger.info("done");
 		        
 		    this.executorService.shutdown();
+		    
+		    runtimeConfig.getMemoryCallback().processResult( stepMemory );
+		    
 		    break;
 	    }
 	      
