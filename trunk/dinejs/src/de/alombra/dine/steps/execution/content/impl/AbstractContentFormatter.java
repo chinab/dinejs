@@ -13,10 +13,10 @@ public abstract class AbstractContentFormatter implements ContentFormatter {
     try {
       
       Content content = doFormat( method, contentType );
-      
+
       return new String( 
-                    content.getText().getBytes(), 
-                    content.getEncoding().getIdentifier() 
+                    content.getText().getBytes(),
+                    "UTF-8"
                   );
     }
     catch ( Exception e ) {

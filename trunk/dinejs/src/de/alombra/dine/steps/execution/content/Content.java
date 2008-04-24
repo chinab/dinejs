@@ -1,6 +1,7 @@
 package de.alombra.dine.steps.execution.content;
 
 
+
 public class Content {
 
   private Encoding encoding;
@@ -9,6 +10,7 @@ public class Content {
   
   public Content( String text, Encoding encoding ) {
     super();
+    
     this.encoding = encoding;
     this.text = text;
   }

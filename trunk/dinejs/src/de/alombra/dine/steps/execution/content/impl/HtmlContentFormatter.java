@@ -20,9 +20,11 @@ public class HtmlContentFormatter extends AbstractContentFormatter {
     
     cleaner.setNamespacesAware( false );
     cleaner.setOmitXmlDeclaration( true );
-    cleaner.setTranslateSpecialEntities( true );
+    cleaner.setTranslateSpecialEntities( false );
+    cleaner.setRecognizeUnicodeChars( false );
     
     cleaner.clean();      
+    
     
     return new Content(
                   cleaner.getXmlAsString(),
