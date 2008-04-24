@@ -47,6 +47,9 @@ public class HttpManagerImpl implements HttpManager {
     
     HttpMethod method = new GetMethod( url );
 
+    // decoy
+    //method.addRequestHeader( "User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)" );
+    
     httpClient.executeMethod( method );
     
     return new HttpResult( method, httpClient.getState() );

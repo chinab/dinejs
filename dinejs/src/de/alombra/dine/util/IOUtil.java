@@ -20,38 +20,16 @@ public class IOUtil {
 
   public static final Log logger = LogFactory.getLog( IOUtil.class );
     
-	public static void writeToFile( InputStream inputStream, String fileName ) {
+	public static void writeToFile( String str, String fileName ) {
 
-    File file = new File( fileName );
-    FileOutputStream fileOutputStream = null;
-    Writer out = null;
-
-    try {
-
-      if ( !file.exists() )
-        file.createNewFile();
-
-      fileOutputStream = new FileOutputStream( file );
-
-      int nextByte; 	      
-
-      out = new BufferedWriter( new OutputStreamWriter( fileOutputStream, "UTF8" ) );
-
-      while ( ( nextByte = inputStream.read() ) != -1 ) {
-        out.write( nextByte );
-      }
-      
-    }
-    catch( Exception e ) {
-      throw new RuntimeException( e );
-    }
-    finally {
-      try {
-        out.close();
-      } catch (IOException e) {
-        throw new RuntimeException( "Unable to close file output stream", e );
-      }
-    }
+	  try {
+	    Writer out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( fileName ), "UTF8") );
+      out.write( str );
+      out.close();
+	  }
+	  catch( IOException e ) {
+      throw new RuntimeException( "Unable to write file "+fileName, e );
+	  }  
   }	  
 	
   public static void writeBinaryFile( InputStream inputStream, String fileName ) {

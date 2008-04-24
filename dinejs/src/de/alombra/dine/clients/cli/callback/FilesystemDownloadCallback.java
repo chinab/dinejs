@@ -1,6 +1,5 @@
 package de.alombra.dine.clients.cli.callback;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import de.alombra.dine.runtime.callback.DownloadCallback;
@@ -23,7 +22,7 @@ public class FilesystemDownloadCallback implements DownloadCallback {
 
   public void writeFile( String content, String filename ) {
 
-    IOUtil.writeToFile( new ByteArrayInputStream( content.getBytes() ), filename );
+    IOUtil.writeToFile( content, this.baseDir+"/"+filename );
   }
 
 }
