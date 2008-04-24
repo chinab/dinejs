@@ -26,9 +26,7 @@ createStep({
 				next = this.getRootUrl()+next;
 								
 				if ( ctx.getMemory().hasKey( next ) == false ) {
-				
-					//print( "visiting: "+next );
-					
+									
 					ctx.getMemory().put( next, "" );
 					ctx.addStep("/visitEveryPage", createMap( { "url": next } ) );
 				}
@@ -36,31 +34,39 @@ createStep({
 			}
 			
 			if ( next.match(/^mailto:/) ) {
-			
-				// some normalization...
-				var email = next.substring( next.indexOf(":")+1, next.length );
-				email = email.replace( " at ", "@");
-				email = email.replace( / /g, "" );
-				email = email.replace( "[at]", "@" );
-				email = email.replace( "(at)", "@" );
+
+				var email = this.getEmailAddressFromLink( next );
 				
-				// the corresponding url:
-				var url;
+				if ( ctx.getMemory().hasKey( email ) == false ) {
 				
-				if ( ctx.hasParam("url") == false ) {
-					url = this.getRootUrl();
+				  ctx.getMemory().put( email, "" );
+				  print( email );
 				}
-				else {
-					url = ctx.getParam("url");
-				}
-				
-				print( email+"    ["+url+"]" );
 			}
 		}
 	},
 	
+	getEmailAddressFromLink: function( link ) {
+	
+		
+		var email = String( link );
+		
+		email = email.substring( email.indexOf(":")+1, email.length );
+		
+		if ( email.indexOf("?") != -1 ) {
+			email = email.substring( 0, email.indexOf("?") );
+		}
+		
+		email = email.replace( " at ", "@");
+		email = email.replace( / /g, "" );
+		email = email.replace( "[at]", "@" );
+		email = email.replace( "(at)", "@" );	
+		
+		return email;
+	},
+	
 	getRootUrl: function() {
-		return "http://www.phpcenter.de";
+		return "http://www.berlin.de";
 	},
 	
 	isInternalLink: function( link ) {
