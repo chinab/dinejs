@@ -1,6 +1,7 @@
 package de.alombra.dine.steps;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -14,5 +15,13 @@ public class StepMemory {
   
   public void put( String key, String value ) {
     memories.put( key, value );
+  }
+  
+  public String get( String key ) {
+    return memories.get( key );
+  }
+  
+  public Set<String> getKeys() {
+    return memories.keySet();
   }
 }
