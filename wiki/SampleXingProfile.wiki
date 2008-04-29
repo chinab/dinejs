@@ -8,6 +8,8 @@ The code could be easily modified to traverse the network of public friends, but
 
 = Code =
 
+_Unfortunately googlecode's codehighlighting breaks when you use E4X syntax in !JavaScript, nevertheless I hope you can read the code below. I already reported this bug and hope it will be fixed soon._
+
 {{{
 createStep({
 	getUrl: function( ctx ) {
