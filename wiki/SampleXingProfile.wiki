@@ -1,5 +1,11 @@
 #summary extract information from a public XING profile
 
+You probably know the big business contacts community [http://xing.com XING]. All registered users can create a profile there, which can also be made publicly available. When playing with dine and searching for examples, I thought I'll show how to parse those public profiles into an invented XML schema.
+
+The code is pretty straight forward, actually I'm just searching for the HTML tags containing the data via their CSS class names ( I used [https://addons.mozilla.org/de/firefox/addon/1843 Firebug], an excellent Firefox addon to find them ).  
+
+
+
 = Code =
 
 {{{
@@ -82,7 +88,7 @@ createStep({
 
 = Sample Output =
 
-The name is left blank for obvious reasons.
+The name is left blank for obvious privacy reasons.
 
 {{{
 <profile>
