@@ -82,6 +82,8 @@ createStep({
 
 = Sample Output =
 
+The name is left blank for obvious reasons.
+
 {{{
 <profile>
   <name>...</name>
@@ -132,5 +134,3 @@ createStep({
   </jobhistory>
 </profile>
 }}}
-
-
