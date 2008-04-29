@@ -77,3 +77,23 @@ _The title of google.com is Google, what a surprise!_
 
 
 === Understanding the code ===
+
+ * dine will at first call the method _getUrl_ of your step which will return the URI of the website to fetch as a string.
+
+ * Next dine will do the following things:
+   # make a HTTP request to the website located under that URI
+   # fetch the HTML code of that website
+   # convert that HTML to valid XML
+   # save that XML in the context object ( _ctx_ )
+   # call the method _run_ of your step with the context object as an argument 
+
+ * the XML can now be accessed via _ctx.getResponse()_, the above code builds and uses an E4X object from that, which allows for very simple and easy XML parsing
+
+
+=== Learn more ===
+
+dine can do much more things, such as trigger new steps, pass params to steps, retrieve JSON...
+
+Check the [Samples samples] and [Tutorials tutorials] to learn more.
+
+Also, feel free to comment this page,if you feel something misses or is not really well understandable in this introduction.
