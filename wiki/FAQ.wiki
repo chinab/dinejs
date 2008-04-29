@@ -7,7 +7,7 @@
 
   * *Why do I have to write a step for each website I want to parse, couldn't I parse more than one in a step?* 
 
-  dine executes your steps concurrently and the best way to parallelize execution is to start a single thread for each website to parse.
+  dine executes your steps concurrently and the best way to parallelize execution is to use a single thread for each website to parse.
 
   In fact a step is an implementation of the [http://en.wikipedia.org/wiki/Command_pattern command pattern].
 
