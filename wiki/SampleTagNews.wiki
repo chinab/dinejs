@@ -1,5 +1,8 @@
 #summary read a newsfeed and find tags for the articles via tagthe.net
 
+In this sample we will play with different services offered in the web. We use dine to read an RSS newsfeed and after that we will use [http://www.tagthe.net] to get a list of tags for each news entry. Those tags are automatically generated and describe the content of the tagged website. 
+
+This could for example be used to find news posts from different websites that describe the same event.
 
 = Code = 
 
@@ -62,6 +65,8 @@ createStep({
 
 
 = Sample Output = 
+
+_there are still some encoding errors in the output, there's already a bug report for this, hope it will be fixed soon_
 
 {{{
 <article title="Merkels Fazit zum EU-Lateinamerika-Gipfel" url="http://www.tagesschau.de/ausland/lateinamerika8.html">
