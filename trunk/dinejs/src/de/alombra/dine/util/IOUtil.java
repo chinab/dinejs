@@ -23,7 +23,7 @@ public class IOUtil {
 	public static void writeToFile( String str, String fileName ) {
 
 	  try {
-	    Writer out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( fileName ), "UTF8") );
+	    Writer out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( fileName ), "UTF-8") );
       out.write( str );
       out.close();
 	  }

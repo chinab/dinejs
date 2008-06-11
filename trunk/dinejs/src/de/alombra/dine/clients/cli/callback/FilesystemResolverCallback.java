@@ -27,6 +27,8 @@ public class FilesystemResolverCallback implements ResolverCallback {
     Map<String, Reader> resolvedSteps = new HashMap<String, Reader>();
   
     try {
+
+      int baseDirPathLength = dir.getCanonicalPath().length();
       
       // recursively locate all .js files under the base directory
       for ( File jsFile : IOUtil.scanDirectory( dir ) ) {
@@ -34,9 +36,12 @@ public class FilesystemResolverCallback implements ResolverCallback {
         // cut off the .js ending, cut off the path to the basedir
         // so that only the path to the file under the basedir is 
         // left as name for the step
-        String name = jsFile.getCanonicalPath()
-                            .replaceAll( dir.getCanonicalPath(), "" )
-                            .replaceAll(".js", "");
+        
+        String jsFilePath = jsFile.getCanonicalPath();
+        
+        String name = jsFilePath.substring( baseDirPathLength, jsFilePath.length() )
+                                .replaceAll( "\\\\", "/" )
+                                .replaceAll(".js", "");
   
         resolvedSteps.put( name, new FileReader( jsFile ) );
       }
