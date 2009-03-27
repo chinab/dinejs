@@ -31,3 +31,14 @@
   I think that E4X is much more intuitive and easier to use than XPath, so the dine API currently only offers support for E4X. 
 
   Maybe there will also be an XPath API in the future, because a lot of people are familiar with it and it is much more powerful than E4X, yet harder to handle. If you're interested in implementing this, feel free to join this project!
+
+
+  * *Does it support POST or HTTP AUTH*
+
+  It supports POST, you have to add a function called getMethod() in your step, that returns the string "POST".
+
+  You can then implement another method call getPostParams() that should return a map of the parameters used for the post.
+
+  HTTP Auth is currently not supported, but could be added with very small effort, as we use commons-httpclient inside.
+
+  Drop me a mail to spam *at* alombra.de, if you need this functionality, maybe I will sit down for some hours and add it.
