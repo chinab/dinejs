@@ -33,7 +33,7 @@
   Maybe there will also be an XPath API in the future, because a lot of people are familiar with it and it is much more powerful than E4X, yet harder to handle. If you're interested in implementing this, feel free to join this project!
 
 
-  * *Does it support POST or HTTP AUTH*
+  * *Does it support POST or HTTP AUTH ?*
 
   It supports POST, you have to add a function called getMethod() in your step, that returns the string "POST".
 
